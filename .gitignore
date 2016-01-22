@@ -1,0 +1,10 @@
+# Security comes first
+.ssh/**
+
+# Ignore my history
+.z
+.zsh_history
+
+# Private files
+custom/private.zsh
+

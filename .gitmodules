@@ -1,0 +1,9 @@
+[submodule ".oh-my-zsh"]
+	path = .oh-my-zsh
+	url = git@github.com:robbyrussell/oh-my-zsh.git
+[submodule "custom/docker-cleanup-volumes"]
+	path = custom/docker-cleanup-volumes
+	url = git@github.com:chadoe/docker-cleanup-volumes.git
+[submodule "custom/plugins/zsh-syntax-highlighting"]
+	path = custom/plugins/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
