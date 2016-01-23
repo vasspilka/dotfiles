@@ -1,6 +1,6 @@
 export ZSH=~/.oh-my-zsh
 
-ZSH_THEME="3den"
+ZSH_THEME="xiong-chiamiov-plus"
 TERM=screen-256color-bce
 
 alias pac="sudo pacman"
@@ -138,14 +138,15 @@ fi
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# source ~/.nvm/nvm.sh
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-source ~/.rvm/scripts/rvm
-
-### 3den red *
+### Some flavor
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[white]%}("
-ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX=")%{\e[0;34m%}%B"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$fg[white]%}"
+
 
 autoload -Uz zcalc
 bindkey ' ' magic-space
+
+# rbenv 
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
