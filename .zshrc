@@ -17,7 +17,6 @@ alias svim="vim ~/.vimrc"
 alias mine='sudo chown -R $USER'
 alias drun='docker run -it --rm'
 alias cordova='drun --privileged -v /dev/bus/usb:/dev/bus/usb -v $PWD:/src cordova cordova'
-alias popcorn="nvm use 0.10 && cd ~/Desktop/Work/node/popcorn && grunt start"
 
 # Typo aliases
 alias rpsec='rspec'
@@ -85,23 +84,6 @@ psql () {
   fi
 }
 
-install_packages_pac () {
-  pac -S zsh docker skype tmux vim the_silver_searcher xclip nodejs
-  yaourt -S google-chrome atom-editor
-  install_rvm
-}
-
-install_rvm () {
-  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-  \curl -sSL https://get.rvm.io | bash -s stable<Paste> --ruby=2.3.0
-}
-
-docker_install () {
-  docker run -p 5432:5432 -d --name postgres postgres
-  docker run -p 6379:6379 -d --name redis redis
-  docker run -p 9200:9200 -p 9300:9300 -d --name elastic elasticsearch
-}
-
 alias -s html=vim
 alias -s php=vim
 alias -s css=vim
@@ -167,9 +149,3 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$fg[white]%}"
 
 autoload -Uz zcalc
 bindkey ' ' magic-space
-
-# # The next line updates PATH for the Google Cloud SDK.
-# source '/home/btd/misc/google-cloud-sdk/path.zsh.inc'
-
-# # The next line enables bash completion for gcloud.
-# source '/home/btd/misc/google-cloud-sdk/completion.zsh.inc'
