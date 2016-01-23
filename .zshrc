@@ -140,7 +140,7 @@ fi
 
 ### Some flavor
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[white]%}("
-ZSH_THEME_GIT_PROMPT_SUFFIX=")%{\e[0;34m%}%B"
+ZSH_THEME_GIT_PROMPT_SUFFIX=")%{\e[0;34m%}%B "
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$fg[white]%}"
 
 
