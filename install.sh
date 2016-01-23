@@ -6,7 +6,7 @@ git submodule init
 git submodule update
 
 echo "Dotfiles"
-for file in $(ls -A | grep -v 'custom$\|.git$\|.gitmodules$\|\.gitignore$\|install.sh$')
+for file in $(ls -A | grep "^\.[a-z]"| grep -v '.git$\|.gitmodules$\|\.gitignore$')
 do
   ln -v -s `pwd`/$file ~
 done
