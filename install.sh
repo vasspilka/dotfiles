@@ -16,6 +16,10 @@ for file in $(ls -A custom)
 do
   ln -v -s `pwd`/custom/$file ~/.oh-my-zsh/custom
 done
+for file in $(ls -A custom/plugins)
+do
+  ln -v -s `pwd`/custom/plugins/$file ~/.oh-my-zsh/custom/plugins 
+done
 
 
 read -p "You use neovim yet? y/n"

@@ -1,0 +1,1 @@
+docker run -it --link postgres:postgres -v /home/ubuntu/revine_backups:/temp --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres revine_development < /temp/01_23'
