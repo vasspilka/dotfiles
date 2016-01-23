@@ -25,7 +25,8 @@ done
 read -p "You use neovim yet? y/n"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
-  ln -s ~/.vim $XDG_CONFIG_HOME/nvim
-  ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+  mkdir ~/.config
+  rm -rf ~/.config/nvim
+  ln -s ~/.vim ~/.config/nvim
+  ln -s ~/.vimrc ~/.config/nvim/init.vim
 fi
