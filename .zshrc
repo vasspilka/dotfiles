@@ -1,7 +1,8 @@
 export ZSH=~/.oh-my-zsh
 
-ZSH_THEME="3den"
 TERM=screen-256color-bce
+
+ZSH_THEME="amuse"
 
 alias pac="sudo pacman"
 alias pacup="sudo pacman -Suy"
@@ -137,15 +138,6 @@ fi
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# source ~/.nvm/nvm.sh
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-source ~/.rvm/scripts/rvm
-
-### 3den red *
-ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[white]%}("
-ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$fg[white]%}"
 
 autoload -Uz zcalc
 bindkey ' ' magic-space
