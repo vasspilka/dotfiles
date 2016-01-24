@@ -1,7 +1,7 @@
 install_everything! () {
   install_packages_pac
-  install_rvm
   install_docker_cont
+  install_rbenv
 }
 
 install_packages_pac () {
@@ -11,7 +11,12 @@ install_packages_pac () {
 
 install_rvm () {
   gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-  \curl -sSL https://get.rvm.io | bash -s stable<Paste> --ruby=2.3.0
+  \curl -sSL https://get.rvm.io | bash -s stable --ruby=2.3.0
+}
+
+install_rbenv () {
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  cd ~/.rbenv && src/configure && make -C src
 }
 
 install_docker_cont () {

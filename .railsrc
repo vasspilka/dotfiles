@@ -1,0 +1,4 @@
+# Skip bundle install, unit-tests, and postgres as default
+-B
+-T 
+-d postgresql
