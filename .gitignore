@@ -5,6 +5,9 @@
 .z
 .zsh_history
 
+# Ignore embeded symlink
+.vim/init.vim
+
 # Private files
 custom/private.zsh
 Videos
