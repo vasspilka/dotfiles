@@ -1,4 +1,4 @@
-" Pathogen to include all plugins in ~/.vim/bundle, puck vundle!
+" Pathogen to;q include all plugins in ~/.vim/bundle, puck vundle!
 execute pathogen#infect()
 
 " -------------------------------------
@@ -43,10 +43,31 @@ map <leader>n ;NERDTreeToggle<CR>
 "  Plugins Configuration
 " -------------------------------------
 
+" fzf
+set rtp+=~/.fzf
+nmap <leader>, Files() <CR>
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
 " Incsearh
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>!
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
 
 " rspec
 map <Leader>s :call RunCurrentSpecFile()<CR>
@@ -54,11 +75,15 @@ map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
 " ctrlp config
-let g:ctrlp_map = '<leader>f'
+let g:ctrlp_map = '<leader>cp'
 let g:ctrlp_max_height = 30
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$\|\Work$\|\Downloads$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
 
 " Ag
 let g:ag_working_path_mode="r"
@@ -142,6 +167,14 @@ function! ToggleMouse()
         set mouse=a
     endif
 endfunc
+
+function! Fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
 
 "-------------
 " Neovim setup
