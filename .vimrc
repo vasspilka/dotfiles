@@ -43,13 +43,14 @@ map <leader>n ;NERDTreeToggle<CR>
 "  Plugins Configuration
 " -------------------------------------
 
-" fzf
+" fzf be fuzzy at lighting speed
 set rtp+=~/.fzf
 nmap <leader>f ;Files <CR>
 nmap <leader>gf ;GitFiles <CR>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " Insert mode completion
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -157,6 +158,15 @@ function! ToggleMouse()
         set mouse=a
     endif
 endfunc
+
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
 
 "-------------
 " Neovim setup
