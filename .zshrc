@@ -107,7 +107,7 @@ alias -s log=tail
 # DISABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -120,8 +120,12 @@ plugins=(z git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/vs/.gem/ruby/2.2.0/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:"
+
+# Yay for brew on linux
+export PATH="$HOME/.linuxbrew/bin:$PATH"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8

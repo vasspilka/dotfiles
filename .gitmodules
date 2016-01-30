@@ -61,3 +61,12 @@
 [submodule ".vim/bundle/fzf.vim"]
 	path = .vim/bundle/fzf.vim
 	url = git@github.com:junegunn/fzf.vim.git
+[submodule ".vim/bundle/vim-monster"]
+	path = .vim/bundle/vim-monster
+	url = git@github.com:osyo-manga/vim-monster.git
+[submodule ".vim/bundle/vimproc.vim"]
+	path = .vim/bundle/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim.git
+[submodule ".vim/bundle/neocomplete.vim"]
+	path = .vim/bundle/neocomplete.vim
+	url = git@github.com:Shougo/neocomplete.vim.git

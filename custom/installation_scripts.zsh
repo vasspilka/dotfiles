@@ -2,11 +2,16 @@ install_everything! () {
   install_packages_pac
   install_docker_cont
   install_rbenv
+  install_linux_brew
 }
 
 install_packages_pac () {
   pac -S zsh docker skype tmux vim the_silver_searcher xclip nodejs
   yaourt -S google-chrome atom-editor
+}
+
+install_linux_brew () {
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/linuxbrew/go/install)"
 }
 
 install_rvm () {

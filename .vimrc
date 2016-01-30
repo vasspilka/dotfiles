@@ -39,6 +39,9 @@ vnoremap < <gv
 nnoremap <leader>t :tabnew<CR>
 map <leader>n ;NERDTreeToggle<CR>
 
+vnoremap <C-c> "*y<CR>
+nmap <C-c> "*y
+
 " -------------------------------------
 "  Plugins Configuration
 " -------------------------------------
@@ -76,9 +79,6 @@ map <Leader>s :call RunCurrentSpecFile()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
-" Ag
-let g:ag_working_path_mode="r"
-
 " airline config
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
@@ -92,6 +92,15 @@ vmap  <expr>  <DOWN>   DVB_Drag('down')
 vmap  <expr>  <UP>     DVB_Drag('up')
 vmap  <expr>  D        DVB_Duplicate()
 let g:DVB_TrimWS = 1 " Remove trailing space
+
+" vim monster
+let g:neocomplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+let g:neocomplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
 
 " other
 let g:autoswap_detect_tmux = 1
