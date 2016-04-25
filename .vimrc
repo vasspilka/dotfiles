@@ -39,16 +39,21 @@ vnoremap < <gv
 nnoremap <leader>t :tabnew<CR>
 map <leader>n ;NERDTreeToggle<CR>
 
+vnoremap <C-c> "*y<CR>
+nmap <C-c> "*y
+
 " -------------------------------------
 "  Plugins Configuration
 " -------------------------------------
 
-" fzf
+" fzf be fuzzy at lighting speed
 set rtp+=~/.fzf
-nmap <leader>, Files() <CR>
+nmap <leader>f ;Files <CR>
+nmap <leader>gf ;GitFiles <CR>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " Insert mode completion
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -56,12 +61,12 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Incsearh
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>!
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>!
-set hlsearch
-let g:incsearch#auto_nohlsearch = 1
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
 map *  <Plug>(incsearch-nohl-*)
@@ -73,20 +78,6 @@ map g# <Plug>(incsearch-nohl-g#)
 map <Leader>s :call RunCurrentSpecFile()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
-
-" ctrlp config
-let g:ctrlp_map = '<leader>cp'
-let g:ctrlp_max_height = 30
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$\|\Work$\|\Downloads$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ }
-
-" Ag
-let g:ag_working_path_mode="r"
 
 " airline config
 set laststatus=2
@@ -101,6 +92,15 @@ vmap  <expr>  <DOWN>   DVB_Drag('down')
 vmap  <expr>  <UP>     DVB_Drag('up')
 vmap  <expr>  D        DVB_Duplicate()
 let g:DVB_TrimWS = 1 " Remove trailing space
+
+" vim monster
+let g:neocomplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+let g:neocomplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
 
 " other
 let g:autoswap_detect_tmux = 1
@@ -168,13 +168,14 @@ function! ToggleMouse()
     endif
 endfunc
 
-function! Fzf_statusline()
+function! s:fzf_statusline()
   " Override statusline as you like
   highlight fzf1 ctermfg=161 ctermbg=251
   highlight fzf2 ctermfg=23 ctermbg=251
   highlight fzf3 ctermfg=237 ctermbg=251
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
+
 
 "-------------
 " Neovim setup

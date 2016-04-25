@@ -3,15 +3,15 @@
 Vim is a great text editor, where most text editor are optimized to insert text to a document Vim is optimized to edit!
 Below I have a cheat sheet to reference manny of vim default command. Note everything is case sensitive!
 
-Some helpers are used to abstact some of functionality 
+Some helpers are used to abstact some of functionality
 
   1. **!x** means you can use the commands x times just use a number **before** the command
-  2. **-->** means you can use a motion **after** the command 
+  2. **-->** means you can use a motion **after** the command
 
 ### If you want to get out
 
   * `ZZ` -> save and exit (also :x)
-  * `ZQ` -> exit without save (also :q!) 
+  * `ZQ` -> exit without save (also :q!)
 
 ### Motions and Display
 
@@ -40,9 +40,9 @@ Some helpers are used to abstact some of functionality
   * `CTRL-O` -> jump to next jump on stack (also moves between files)
   * gf -> go to file under cursor
 
-  * `zt` -> move display so cursor is at top 
+  * `zt` -> move display so cursor is at top
   * `zz` -> center display to cursor
-  * `zb` -> move display so cursor is at bottom 
+  * `zb` -> move display so cursor is at bottom
   * `CTRL-E` -> display moves one line down
   * `CTRL-Y` -> display moves one line up
 
@@ -65,7 +65,9 @@ Some helpers are used to abstact some of functionality
   * `)(` -> move sentences **-><-**
   * `}{` -> move paragraphs **-><-**
 
-  * `HML` -> move to High Mid Low respectively 
+  * `HML` -> move to High Mid Low respectively
+
+  * `CTRL-J` -> move next line to the end of this one **!x**
 
 
 ### Editing
@@ -75,10 +77,10 @@ Some helpers are used to abstact some of functionality
   * `i` -> insert mode
   * `I` -> insert mode at the beginning
   * `a` -> insert mode after cursor
-  * `A` -> insert mode at end of line 
+  * `A` -> insert mode at end of line
   * `o` -> insert mode at new line below
   * `O` -> insert mode at new line above
-  
+
   * `d` -> delete **-->**
   * `dd` -> delete one line
   * `c` -> deletes and puts you in insert **-->**
@@ -87,7 +89,7 @@ Some helpers are used to abstact some of functionality
   * `s` -> like `x` but puts you to insert mode **!x**
   * `S` -> like `dd` but puts you to insert mode
   * `C` -> like `S` but from cursor to end of line
-  * `r{x}` -> replace character under cursor with `x`   
+  * `r{x}` -> replace character under cursor with `x`
   * `R` -> replace mode
 
   * `y` -> yank (copy) **-->**
@@ -130,7 +132,7 @@ Some helpers are used to abstact some of functionality
 
 ### Ex commands
 
-  * `:` -> Initiate one ex command 
+  * `:` -> Initiate one ex command
   * `Q` -> Initiate EX mode (type visual to quit)
 
   * `:e {file}` -> Edit `file`
@@ -154,14 +156,23 @@ Some helpers are used to abstact some of functionality
  * `v` -> splits window vertically `:vsplit`
  * `w` -> cycle through windows `:switch`
  * `c` -> close window `:close`
- * `o` -> close all except current `:only` 
+ * `o` -> close all except current `:only`
  * `=` -> makes all windows same size
  * `hjkl` -> move between windows left, down, up, right respectively
 
- * `:sp {file}` -> open `file` in new split can also use `:vsp`
-
+ * `:sp {file}` -> open `file` in new split can also use `:vsp` for vertical
 
  * `:tabnew` -> new tab
+ * `:tabe {file}` -> open `file` in a new tab
  * `gt` -> cycle though tabs
  * `{x}gt` -> go to tab `x`
 
+### Buffers 
+  
+Buffers are instances of files in vim memmory (all the files you opened in a window)
+
+  * `:ls` -> view all buffers
+  * `:bp` -> go to previous buffer
+  * `:bn` -> go to next buffer
+  * `:b{x}` -> go to buffer `x`
+  * `:bd' -> delete current buffer
