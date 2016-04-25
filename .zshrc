@@ -18,8 +18,23 @@ alias mine='sudo chown -R $USER'
 alias drun='docker run -it --rm'
 alias cordova='drun --privileged -v /dev/bus/usb:/dev/bus/usb -v $PWD:/src cordova cordova'
 
+alias compose='~/compose'
+
+alias tail='tail -f'
+alias rake='bundle exec rake'
+
 # Typo aliases
-alias rpsec='rspec'
+alias -g rpsec='rspec'
+
+testingspec () {
+  bundle exec rake
+  echo $?
+  if [ $? -ne 1 ]; then
+   echo "test"
+  fi
+}
+
+
 
 mkcd () {
     mkdir -p "$*"
@@ -44,6 +59,12 @@ gamrc () {
 
 btc () {
     curl -s http://api.coindesk.com/v1/bpi/currentprice.json | python -c "import json, sys; print(json.load(sys.stdin)['bpi']['EUR']['rate'])"
+}
+
+d_init () {
+  docker start postgres
+  docker start redis
+  docker start lonely_perlman
 }
 
 docker_stop () {
