@@ -41,6 +41,16 @@ map <leader>n ;NERDTreeToggle<CR>
 
 vnoremap <C-c> "*y<CR>
 nmap <C-c> "*y
+nnoremap vd "_d
+xnoremap x  "_d
+nnoremap vD "_D
+xnoremap P  "0p
+nnoremap =p o<esc>p==
+nnoremap =P O<esc>p==
+
+" $ is too far away from 0
+xnoremap - $
+nnoremap - $
 
 " -------------------------------------
 "  Plugins Configuration
