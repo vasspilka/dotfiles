@@ -6,7 +6,7 @@ install_everything! () {
 }
 
 install_packages_pac () {
-  pac -S zsh docker skype tmux vim the_silver_searcher xclip nodejs
+  pac -S zsh docker skype tmux vim the_silver_searcher xclip nodejs python-virtualenv
   yaourt -S google-chrome atom-editor
 }
 
@@ -27,6 +27,10 @@ install_rbenv () {
 install_docker_cont () {
   docker run -p 5432:5432 -d --name postgres postgres
   docker run -p 6379:6379 -d --name redis redis
+  docker run -p 7474:7474 -d --name neo4j -v ~/neo4j/data:/data -v ~/neo4j/conf:/conf neo4j
   docker run -p 9200:9200 -p 9300:9300 -d --name elastic elasticsearch
 }
 
+link_libudev () {
+  sudo ln -s /usr/lib/libudev.so /usr/lib/libudev.so.0
+}

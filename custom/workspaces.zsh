@@ -6,19 +6,25 @@ glide () {
   docker restart redis
   docker restart elastic
 
-  tmux new-session -d -s sidekiq 'sidekiq -C config/sidekiq.yml'
-  tmux new-session -d -s $SESSION
+  tmux has-session -t $SESSION
+  if [ $? != 0 ]
+  then
+    tmux new-session -d -s sidekiq 'sidekiq -C config/sidekiq.yml'
+    tmux new-session -d -s $SESSION
 
-  tmux new-window -t $SESSION:2 -n 'Vim'
-  tmux new-window -t $SESSION:3 -n 'Console'
+    tmux new-window -t $SESSION:2 -n 'editor'
+    tmux new-window -t $SESSION:3 -n 'test'
 
-  tmux send-keys -t $SESSION:1 "rails s" C-m
-  tmux send-keys -t $SESSION:2 "vim" C-m
+    tmux send-keys -t $SESSION:2 "vim" C-m
+    tmux select-window -t $SESSION:2
+  fi
 
-  tmux select-window -t $SESSION:2
-
-  chrome http://alexey.lvh.me:3000
-  tmux attach-session -t $SESSION
+  if [ $TMUX ]
+  then
+    tmux switch -t $SESSION
+  else 
+    tmux attach -t $SESSION
+  fi
 }
 
 dev_revine () {
@@ -28,36 +34,50 @@ dev_revine () {
   docker restart postgres
   docker restart redis
 
-  tmux new-session -d -s revine-front 'http-server /home/x/Work/revine-frontend/www'
-  tmux -2 new-session -d -s $SESSION
+  tmux has-session -t $SESSION
+  if [ $? != 0 ]
+  then
+    # tmux new-session -d -s revine-front 'http-server /home/x/Work/revine-frontend/www'
+    tmux new-session -d -s $SESSION
 
-  tmux new-window -t $SESSION:2 -n 'Back'
-  tmux new-window -t $SESSION:3 -n 'Front'
-  tmux new-window -t $SESSION:4 -n 'Console'
+    tmux new-window -t $SESSION:2 -n 'editor'
+    tmux new-window -t $SESSION:3 -n 'test'
 
-  tmux send-keys -t $SESSION:1 "rails s -p 8030" C-m
-  tmux send-keys -t $SESSION:2 "vim" C-m
-  tmux send-keys -t $SESSION:3 "rails c" C-m
-  tmux send-keys -t $SESSION:4 "cd /home/x/Work/revine-frontend && vim" C-m
+    tmux send-keys -t $SESSION:2 "vim" C-m
+    tmux send-keys -t $SESSION:3 "rails c" C-m
 
-  tmux select-window -t $SESSION:2
+    tmux select-window -t $SESSION:2
+  fi
 
-  chrome http://gorevine.dev:8080
-  tmux -2 attach-session -t $SESSION
+  if [ $TMUX ]
+  then
+    tmux switch -t $SESSION
+  else 
+    tmux attach -t $SESSION
+  fi
 }
 
 dev_blog () {
   SESSION="Blog"
   cd /home/x/Work/vasspilka.github.io
 
-  tmux -2 new-session -d -s $SESSION
+  tmux has-session -t $SESSION
+  if [ $? != 0 ]
+  then
+    tmux new-session -d -s $SESSION
 
-  tmux new-window -t $SESSION:2 -n 'Vim'
-  tmux new-window -t $SESSION:3 -n 'Console'
-  tmux select-window -t $SESSION:2
+    tmux new-window -t $SESSION:2 -n 'editor'
+    tmux new-window -t $SESSION:3
+    tmux select-window -t $SESSION:2
 
-  tmux send-keys -t $SESSION:1 "rake" C-m
-  tmux send-keys -t $SESSION:2 "vim" C-m
+    tmux send-keys -t $SESSION:1 "rake" C-m
+    tmux send-keys -t $SESSION:2 "vim" C-m
+  fi
 
-  tmux -2 attach-session -t $SESSION
+  if [ $TMUX ]
+  then
+    tmux switch -t $SESSION
+  else 
+    tmux attach -t $SESSION
+  fi
 }
