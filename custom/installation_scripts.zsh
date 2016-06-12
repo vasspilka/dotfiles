@@ -1,13 +1,16 @@
 install_everything! () {
   install_packages_pac
-  install_docker_cont
   install_rbenv
   install_linux_brew
+  install_docker_cont
+  link_libudev
 }
 
 install_packages_pac () {
-  pac -S zsh docker skype tmux vim the_silver_searcher xclip nodejs python-virtualenv
-  yaourt -S google-chrome atom-editor
+  pac -S zsh docker skype tmux neovim the_silver_searcher xclip nodejs python-virtualenv
+  yaourt -S google-chrome
+  yaourt -S atom-editor
+  yaourt -S ruby-build
 }
 
 install_linux_brew () {
