@@ -70,3 +70,9 @@
 [submodule ".vim/bundle/neocomplete.vim"]
 	path = .vim/bundle/neocomplete.vim
 	url = git@github.com:Shougo/neocomplete.vim.git
+[submodule ".vim/bundle/vim-zenmode"]
+	path = .vim/bundle/vim-zenmode
+	url = https://github.com/mmai/vim-zenmode.git
+[submodule ".vim/bundle/vim-colors-solarized"]
+	path = .vim/bundle/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git

@@ -1,27 +1,33 @@
 export ZSH=~/.oh-my-zsh
 
-ZSH_THEME="xiong-chiamiov-plus"
-TERM=screen-256color-bce
+ZSH_THEME="xiong-chi-btd"
+TERM=xterm-256color
 
 alias pac="sudo pacman"
 alias pacup="sudo pacman -Suy"
 alias apti="sudo apt-get install"
 alias aptup="sudo apt-get update && sudo apt-get upgrade"
 
-alias tmux="tmux -2"
+alias gpds="git push && ./deploy.sh staging"
+#alias tmux="tmux -2"
 
 alias vim="nvim"
 alias szsh="vim ~/.zshrc"
 alias svim="vim ~/.vimrc"
+alias snote="vim ~/.note"
+alias scustom="cd /home/x/custom; vim; popd"
 
 alias mine='sudo chown -R $USER'
 alias drun='docker run -it --rm'
 alias cordova='drun --privileged -v /dev/bus/usb:/dev/bus/usb -v $PWD:/src cordova cordova'
 
-alias compose='~/compose'
+alias compose='docker-compose'
 
 alias tail='tail -f'
+alias be='bundle exec'
 alias rake='bundle exec rake'
+
+
 
 # Typo aliases
 alias -g rpsec='rspec'
@@ -34,8 +40,6 @@ testingspec () {
   fi
 }
 
-
-
 mkcd () {
     mkdir -p "$*"
     cd "$*"
@@ -44,6 +48,11 @@ mkcd () {
 cdl () {
     cd "$*"
     ls -la
+}
+
+gacm () {
+  git add .
+  git commit -m "$1"
 }
 
 gamend () {
@@ -64,7 +73,7 @@ btc () {
 d_init () {
   docker start postgres
   docker start redis
-  docker start lonely_perlman
+  docker start neo4j
 }
 
 docker_stop () {
@@ -162,11 +171,6 @@ fi
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-### Some flavor
-ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[white]%}("
-ZSH_THEME_GIT_PROMPT_SUFFIX=")%{\e[0;34m%}%B "
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$fg[white]%}"
 
 
 autoload -Uz zcalc

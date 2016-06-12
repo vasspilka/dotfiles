@@ -5,6 +5,7 @@ execute pathogen#infect()
 "  Basic configuration
 " -------------------------------------
 
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let mapleader = ","
 nnoremap ; :
 nnoremap : ;
@@ -28,7 +29,7 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set autoindent
-set nowrap
+set wrap
 set textwidth=0
 
 " Reselect visual block after indent/outdent
@@ -92,6 +93,7 @@ map <Leader>a :call RunAllSpecs()<CR>
 " airline config
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme = 'molokai'
 
 " visual drag config
 runtime plugin/dragvisuals.vim
@@ -145,11 +147,11 @@ nnoremap @st <C-W>T
 " -------------------------------------
 
 syntax enable
-set background=dark
 set t_Co=256
-
-let g:airline_theme = 'molokai'
-
+let g:solarized_termcolors=256
+set background=dark
+colorscheme solarized
+"
 " -------------------------------------
 "  Custom Functions
 " -------------------------------------
