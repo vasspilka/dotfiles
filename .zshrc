@@ -1,109 +1,47 @@
-export ZSH=~/.oh-my-zsh
+###########################
+# ZSH DEFAULTS
+###########################
 
-ZSH_THEME="xiong-chi-btd"
+ZSH_THEME="xiong-chiamiov-plus"
 TERM=xterm-256color
+COMPLETION_WAITING_DOTS="true"
+ENABLE_CORRECTION="true"
+# CASE_SENSITIVE="true"
+# HYPHEN_INSENSITIVE="true"
+# DISABLE_AUTO_TITLE="true"
 
-alias pac="sudo pacman"
-alias pacup="sudo pacman -Suy"
-alias apti="sudo apt-get install"
-alias aptup="sudo apt-get update && sudo apt-get upgrade"
-
-alias gpds="git push && ./deploy.sh staging"
-#alias tmux="tmux -2"
+#####################
+## Aliases
+#####################
 
 alias vim="nvim"
-alias szsh="vim ~/.zshrc"
-alias svim="vim ~/.vimrc"
-alias snote="vim ~/.note"
+alias pac="sudo pacman"
+
+alias  szsh="vim ~/.zshrc"
+alias stmux="vim ~/.tmux.conf"
+alias  svim="vim ~/.vimrc"
+alias note="vim ~/.note"
 alias scustom="cd /home/x/custom; vim; popd"
 
 alias mine='sudo chown -R $USER'
-alias drun='docker run -it --rm'
-alias cordova='drun --privileged -v /dev/bus/usb:/dev/bus/usb -v $PWD:/src cordova cordova'
 
-alias compose='docker-compose'
-
-alias tail='tail -f'
+## Ruby
+alias -g rpsec="rspec"
 alias be='bundle exec'
 alias rake='bundle exec rake'
 
+## Git
+alias gpds='git push && ./deploy.sh staging'
+alias gamend='git commit -a --amend'
 
+######################
+## Custom vars
+######################
 
-# Typo aliases
-alias -g rpsec='rspec'
+Work="~/Work"
 
-testingspec () {
-  bundle exec rake
-  echo $?
-  if [ $? -ne 1 ]; then
-   echo "test"
-  fi
-}
-
-mkcd () {
-    mkdir -p "$*"
-    cd "$*"
-}
-
-cdl () {
-    cd "$*"
-    ls -la
-}
-
-gacm () {
-  git add .
-  git commit -m "$1"
-}
-
-gamend () {
-    git add .
-    git commit --amend
-}
-
-gamrc () {
-    git add .
-    git commit --amend
-    git rebase --continue
-}
-
-btc () {
-    curl -s http://api.coindesk.com/v1/bpi/currentprice.json | python -c "import json, sys; print(json.load(sys.stdin)['bpi']['EUR']['rate'])"
-}
-
-d_init () {
-  docker start postgres
-  docker start redis
-  docker start neo4j
-}
-
-docker_stop () {
-  docker kill $(docker ps -q)
-}
-
-docker_wipe () {
-  docker kill $(docker ps -q)
-  docker rm $(docker ps -a -q)
-  docker rmi $(docker images -q)
-  sudo ~/.oh-my-zsh/custom/docker-cleanup-volumes/docker-cleanup-volumes.sh
-}
-
-git_pull_dir () {
-  CUR_DIR=$(pwd)
-
-  echo "\n\033[1mPulling in latest changes for all repositories...\033[0m\n"
-
-  for i in $(find . -name ".git" | cut -c 3-); do
-    echo "";
-    echo "\033[33m"+$i+"\033[0m";
-    cd "$i";
-    cd ..;
-
-    git pull origin master;
-
-    cd $CUR_DIR
-  done
-
-  echo "\n\033[32mComplete!\033[0m\n"
+run_specs_and_notify () {
+  rake
 }
 
 psql () {
@@ -114,70 +52,31 @@ psql () {
   fi
 }
 
-alias -s html=vim
-alias -s php=vim
-alias -s css=vim
-alias -s js=vim
-alias -s py=vim
-alias -s sql=vim
-alias -s cpp=vim
-alias -s y=vim
-alias -s c=vim
-alias -s h=vim
-alias -s txt=vim
-alias -s log=tail
+######################
+# Export vars
+######################
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+export ZSH=/home/vs/.oh-my-zsh
+export LANG=en_US.UTF-8
+export EDITOR='nvim'
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export MANPATH="/usr/local/man:$MANPATH"
+# export ARCHFLAGS="-arch x86_64"
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SLACK_WEBHOOK_URI="https://hooks.slack.com/services/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"
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
 
-# Uncomment the following line to disable command auto-correction.
-# DISABLE_CORRECTION="true"
+###############################
+# Inits, sourcing and plugins
+###############################
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-HIST_STAMPS="dd/mm/yyyy"
-
-plugins=(z git zsh-syntax-highlighting)
+plugins=(git z gem zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
-
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:"
-
-# Yay for brew on linux
-export PATH="$HOME/.linuxbrew/bin:$PATH"
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='vim'
-fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-
-autoload -Uz zcalc
-bindkey ' ' magic-space
-
-# rbenv 
-export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+ZSH_THEME_GIT_PROMPT_PREFIX="(%{$fg[white]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{\e[0;34m%}%B)"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*"
