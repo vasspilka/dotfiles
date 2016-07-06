@@ -52,6 +52,22 @@ dev_revine () {
   tmux_go
 }
 
+dev_vanman () {
+  SESSION="VanMan"
+  cd ~/Work/vanman
+
+  docker restart postgres&
+
+  tmux has-session -t $SESSION
+  if [ $? != 0 ]
+  then
+    tmux_base_session_and_windows
+  fi
+
+  tmux_go
+}
+
+
 dev_blog () {
   SESSION="Blog"
   cd ~/Work/vasspilka.github.io
@@ -78,4 +94,23 @@ zen_mode () {
   fi
 
   tmux_go
+}
+
+ruby_meetup_27 () {
+  SESSION="Ruby Meetup 27"
+  cd ~/Work/ruby_meetup_27
+
+  tmux has-session -t $SESSION
+  if [ $? != 0 ]
+  then
+    tmux new-session -d -s $SESSION
+    tmux new-window     -t $SESSION:2 -n 'vim'
+    tmux new-window     -t $SESSION:3 -n 'notes'
+    tmux send-keys      -t $SESSION:2 "vim" C-m
+    tmux rename-window  -t $SESSION:1 'term'
+    tmux select-window  -t $SESSION:1
+  fi
+
+  tmux_go
+
 }

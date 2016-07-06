@@ -4,22 +4,35 @@
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set number relativenumber
 
+" Use spaces, damn it!
+set expandtab
+set smarttab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set autoindent
+set wrap
+set textwidth=0
+set mouse=""
+let g:autoswap_detect_tmux = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""
 "" Plugins
 """"""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'gioele/vim-autoswap'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-"" yet to user
 Plug 'janko-m/vim-test'
+Plug 'tyrannicaltoucan/vim-deep-space'
+
+" function! DoRemote(arg)
+"   UpdateRemotePlugins
+" endfunction
+" Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
 
 call plug#end()
@@ -47,7 +60,7 @@ nnoremap =P O<esc>p==
 
 """"" Refinements """""
 nnoremap vd "_d
-noremap x  "_d
+"noremap x  "_d
 nnoremap vD "_D
 xnoremap P  "0p
 xnoremap - $
@@ -74,6 +87,11 @@ nnoremap <silent> @s< :vertical resize -5<CR>
 nnoremap @so <C-W>o
 nnoremap @st <C-W>T
 
+""
+colorscheme deep-space
+"" Macros
+
+let @p = 'orequire "pry"; binding.pry'
 
 """"""""""""""""""""""""""""""""""""""""""""""
 "" Custom Functions
