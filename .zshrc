@@ -17,17 +17,21 @@ ENABLE_CORRECTION="true"
 alias vim="nvim"
 alias pac="sudo pacman"
 
+alias  scustom="cd /home/x/custom; vim; popd"
 alias  szsh="vim ~/.zshrc"
 alias stmux="vim ~/.tmux.conf"
 alias  svim="vim ~/.vimrc"
-alias note="vim ~/.note"
-alias scustom="cd /home/x/custom; vim; popd"
+
+alias  note="vim ~/.note"
+alias bnote="vim ~/.books_note"
+alias dnote="vim ~/.developer_note"
 
 alias mine='sudo chown -R $USER'
 
 ## Ruby
-alias -g rpsec="rspec"
 alias be='bundle exec'
+alias rs="bundle exec rspec"
+alias -g rpsec="rspec"
 alias rake='bundle exec rake'
 
 ## Git
@@ -65,6 +69,11 @@ export MANPATH="/usr/local/man:$MANPATH"
 # export ARCHFLAGS="-arch x86_64"
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 export SLACK_WEBHOOK_URI="https://hooks.slack.com/services/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"
+
+# Brewww
+export PATH="$PATH:$HOME/.linuxbrew/bin"
+export MANPATH="$MANPATH:$HOME/.linuxbrew/share/man"
+export INFOPATH="$INFOPATH:$HOME/.linuxbrew/share/info"
 
 
 ###############################

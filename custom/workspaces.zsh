@@ -34,9 +34,9 @@ glide () {
   tmux_go
 }
 
-dev_revine () {
-  SESSION="Revine"
-  cd ~/Work/Revine
+dev_vene () {
+  SESSION="Vene"
+  cd ~/Work/Vene/backend
 
   docker restart postgres&
   docker restart redis&

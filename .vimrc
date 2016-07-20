@@ -22,12 +22,20 @@ let g:autoswap_detect_tmux = 1
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'gioele/vim-autoswap'
+Plug 'tyrannicaltoucan/vim-deep-space' " Colorscheme
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'dkprice/vim-easygrep'
+Plug 'gioele/vim-autoswap'
+
+"" Ruby
 Plug 'janko-m/vim-test'
-Plug 'tyrannicaltoucan/vim-deep-space'
+
+"" Elixir
+Plug 'elixir-lang/vim-elixir'
+Plug 'slashmili/alchemist.vim'
+Plug 'lucidstack/hex.vim'
 
 " function! DoRemote(arg)
 "   UpdateRemotePlugins
@@ -44,6 +52,9 @@ let mapleader = ","
 
 """"" Leader Mappings """""
 nnoremap <leader>t :tabnew<CR>
+nnoremap <leader>r :source ~/.vimrc<CR>
+nnoremap <leader>sv :e ~/.vimrc<CR>
+
 " nerdtree
 map <leader>n :NERDTreeToggle<CR>
 " fzf
@@ -89,6 +100,13 @@ nnoremap @st <C-W>T
 
 ""
 colorscheme deep-space
+
+""""""""""""""""""""""""""""""""""""""""""""""
+"" Let
+""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:alchemist#elixir_erlang_src = '/usr/local/share/src'
+
 "" Macros
 
 let @p = 'orequire "pry"; binding.pry'
