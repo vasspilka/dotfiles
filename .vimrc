@@ -28,6 +28,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'dkprice/vim-easygrep'
 Plug 'gioele/vim-autoswap'
+Plug 'haya14busa/incsearch.vim'
 
 "" Ruby
 Plug 'janko-m/vim-test'
@@ -68,6 +69,20 @@ vnoremap <C-c> "*y<CR>
 nmap <C-c> "*y
 nnoremap =p o<esc>p==
 nnoremap =P O<esc>p==
+
+""""" Incsearch  """""""
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+"" auto_nohlsearch
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
 
 """"" Refinements """""
 nnoremap vd "_d
