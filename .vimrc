@@ -29,6 +29,9 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'dkprice/vim-easygrep'
 Plug 'gioele/vim-autoswap'
 Plug 'haya14busa/incsearch.vim'
+"" Consider following plugins
+"  Plug 'junegunn/vim-easy-align'
+"  Plug 'junegunn/goyo.vim'
 
 "" Ruby
 Plug 'janko-m/vim-test'
@@ -121,9 +124,11 @@ colorscheme deep-space
 """"""""""""""""""""""""""""""""""""""""""""""
 
 let g:alchemist#elixir_erlang_src = '/usr/local/share/src'
+"" Ignoring some phoenix dirs
+let NERDTreeIgnore=['_build', 'node_modules', 'deps']
+let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 
 "" Macros
-
 let @p = 'orequire "pry"; binding.pry'
 
 """"""""""""""""""""""""""""""""""""""""""""""
