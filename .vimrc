@@ -40,6 +40,8 @@ Plug 'janko-m/vim-test'
 Plug 'elixir-lang/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 Plug 'lucidstack/hex.vim'
+Plug 'thinca/vim-ref'
+Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 
 function! DoRemote(arg)
   UpdateRemotePlugins

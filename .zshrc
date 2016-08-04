@@ -80,7 +80,7 @@ export INFOPATH="$INFOPATH:$HOME/.linuxbrew/share/info"
 # Inits, sourcing and plugins
 ###############################
 
-plugins=(git z gem zsh-syntax-highlighting)
+plugins=(git z gem zsh-syntax-highlighting elixir mix)
 
 source $ZSH/oh-my-zsh.sh
 eval "$(rbenv init -)"
