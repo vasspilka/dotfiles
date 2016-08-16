@@ -290,6 +290,9 @@ you should place your code here."
   (dolist (mouse '("<down-mouse-1>" "<mouse-1>"))
     (global-unset-key (kbd mouse)))
 
+  (setq js2-strict-missing-semi-warning nil)
+  (setq js2-missing-semi-one-line-override nil)
+
  )
 
 
