@@ -54,18 +54,19 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""
 "" MAPPINGS
 """"""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ","
+" let mapleader = "\<Space>"
+map <Space> <leader>
 
 """"" Leader Mappings """""
 nnoremap <leader>t :tabnew<CR>
-nnoremap <leader>r :source ~/.vimrc<CR>
-nnoremap <leader>sv :e ~/.vimrc<CR>
+nnoremap <leader>feR :source ~/.vimrc<CR>
+nnoremap <leader>fed :e ~/.vimrc<CR>
 
 " nerdtree
 map <leader>n :NERDTreeToggle<CR>
 " fzf
-nmap <leader>f :Files<CR>
-nmap <leader>gf :GitFiles<CR>
+nmap <leader>ff :Files<CR>
+nmap <leader>pf :GitFiles<CR>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
@@ -90,6 +91,7 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
 """"" Refinements """""
+nmap S :w<cr>
 nnoremap vd "_d
 "noremap x  "_d
 nnoremap vD "_D
@@ -98,6 +100,11 @@ xnoremap - $
 nnoremap - $
 
 """"" Windows & Panes """""
+map <leader>wj :call WinMove('j')<cr>
+map <leader>wk :call WinMove('k')<cr>
+map <leader>wl :call WinMove('l')<cr>
+map <leader>wh :call WinMove('h')<cr>
+
 map <silent> @sj :call WinMove('j')<cr>
 map <silent> @sk :call WinMove('k')<cr>
 map <silent> @sl :call WinMove('l')<cr>
