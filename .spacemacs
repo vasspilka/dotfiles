@@ -37,6 +37,7 @@ values."
      search-engine
      spell-checking
      ranger
+     evil-cleverparens
 
      ;; Common Languages
      ; dockerfile
@@ -264,6 +265,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
     (message (shell-command-to-string "./deploy.sh"))))
 
 (defun nothing())
+(defun new_zen()
+  ;; Write stuff to write new zen note
+  )
 )
 
 (defun dotspacemacs/user-config ()
@@ -275,8 +279,16 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (linum-relative-toggle)
+  (spacemacs/toggle-evil-cleverparens-on)
+  ;(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
-  ;; My shortcuts
+  ;; Suptitute for C-i in terminal
+  (define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)
+
+  ;; Common shortcuts
+
+  ;; Special (winkey) shortcuts
+  (define-key evil-normal-state-map (kbd "s-S") 'save-buffer)
   (define-key evil-normal-state-map (kbd "s-l") 'evil-avy-goto-line)
   (define-key evil-normal-state-map (kbd "s-j") 'evil-avy-goto-char)
   (define-key evil-normal-state-map (kbd "s-D") 'start-my-docker-images)
@@ -284,17 +296,16 @@ you should place your code here."
   ;; Disable annoying keys
   (dolist (key '("\M-k"))
     (global-unset-key key))
-
   ; Disable mouse
   (define-key evil-normal-state-map (kbd "<down-mouse-1>") 'nothing)
   (dolist (mouse '("<down-mouse-1>" "<mouse-1>"))
     (global-unset-key (kbd mouse)))
 
+  ; ES6 JS
   (setq js2-strict-missing-semi-warning nil)
   (setq js2-missing-semi-one-line-override nil)
 
  )
-
 
 ; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
