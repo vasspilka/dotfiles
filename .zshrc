@@ -15,6 +15,7 @@ ENABLE_CORRECTION="true"
 #####################
 
 alias vim="nvim"
+alias   e="emacsclient -t"
 alias pac="sudo pacman"
 
 alias  scustom="cd /home/x/custom; vim; popd"
@@ -22,9 +23,9 @@ alias  szsh="vim ~/.zshrc"
 alias stmux="vim ~/.tmux.conf"
 alias  svim="vim ~/.vimrc"
 
-alias  note="vim ~/.note"
-alias bnote="vim ~/.books_note"
-alias dnote="vim ~/.developer_note"
+alias  note="vim ~/notes/note.org"
+alias bnote="vim ~/notes/books_note.org"
+alias dnote="vim ~/notes/developer_note.org"
 
 alias mine='sudo chown -R $USER'
 
