@@ -29,6 +29,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'dkprice/vim-easygrep'
 Plug 'gioele/vim-autoswap'
 Plug 'haya14busa/incsearch.vim'
+Plug 'whatyouhide/vim-gotham'
 "" Consider following plugins
 "  Plug 'junegunn/vim-easy-align'
 "  Plug 'junegunn/goyo.vim'

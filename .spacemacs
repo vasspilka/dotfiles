@@ -32,7 +32,6 @@ values."
      github
      (shell :variables
             shell-default-height 30
-            shell-default-shell 'eshell
             shell-default-position 'bottom)
      search-engine
      spell-checking
@@ -45,13 +44,14 @@ values."
      html
      colors
      javascript
+     yaml
 
      ;; Elixir & Erlang
      erlang
      elixir
 
      ;; Ruby
-     ruby
+     (ruby :variables ruby-version-manager 'rbenv)
      ruby-on-rails
 
      ;; Other
@@ -81,6 +81,7 @@ values."
    ;; environment, otherwise it is strongly recommended to let it set to t.
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
+
 
    dotspacemacs-elpa-https t
    dotspacemacs-elpa-timeout 5
@@ -149,16 +150,16 @@ values."
    dotspacemacs-default-layout-name "Default"
    ;; If non nil the default layout name is displayed in the mode-line.
    ;; (default nil)
-   dotspacemacs-display-default-layout nil
+   dotspacemacs-display-default-layout t
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts nil
+   dotspacemacs-auto-resume-layouts t
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
-   dotspacemacs-large-file-size 1
    dotspacemacs-auto-save-file-location 'cache
+   dotspacemacs-large-file-size 1
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
@@ -252,6 +253,7 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
+(load-file "~/.emacs.d/private/local/amarok.el")
 (defun start-my-docker-images ()
   (interactive)
   (shell-command-to-string "docker restart postgres")
@@ -289,9 +291,12 @@ you should place your code here."
 
   ;; Special (winkey) shortcuts
   (define-key evil-normal-state-map (kbd "s-S") 'save-buffer)
-  (define-key evil-normal-state-map (kbd "s-l") 'evil-avy-goto-line)
+  (define-key evil-normal-state-map (kbd "s-l") 'avy-goto-line)
+  (define-key evil-normal-state-map (kbd "s-w") 'evil-avy-goto-word-1)
   (define-key evil-normal-state-map (kbd "s-j") 'evil-avy-goto-char)
   (define-key evil-normal-state-map (kbd "s-D") 'start-my-docker-images)
+  ;;(define-key evil-normal-state-map (kbd "s-`") 'spacemacs/jump-to-last-layout)
+  (global-set-key (kbd "s-`") 'spacemacs/jump-to-last-layout)
 
   ;; Disable annoying keys
   (dolist (key '("\M-k"))
@@ -304,6 +309,9 @@ you should place your code here."
   ; ES6 JS
   (setq js2-strict-missing-semi-warning nil)
   (setq js2-missing-semi-one-line-override nil)
+
+  (inhibit-startup-screen t)
+  ;(spacemacs/home)
 
  )
 
