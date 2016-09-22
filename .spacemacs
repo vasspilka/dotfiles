@@ -253,8 +253,16 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
+(defun notes-open-general ()
+  (find-file-existing "~/notes/note.org"))
+(defun notes-open-books()
+  (find-file-existing "~/notes/books_note.org"))
+(defun notes-open-developer()
+  (find-file-existing "~/notes/developer_note.org"))
+
 (load-file "~/.emacs.d/private/local/amarok.el")
-(defun start-my-docker-images ()
+
+(defun start-all-docker-images ()
   (interactive)
   (shell-command-to-string "docker restart postgres")
   (shell-command-to-string "docker restart redis")
@@ -270,6 +278,20 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (defun new_zen()
   ;; Write stuff to write new zen note
   )
+
+(spacemacs/set-leader-keys
+  "oda" 'start-all-docker-images
+  "onn" 'notes-open-general
+  "onb" 'notes-open-books
+  "ond" 'notes-open-developer)
+
+(setq spacemacs/my-key-binding-prefixes '(("o"   "other")
+                                          ("od"  "docker")
+                                          ("on"  "notes")))
+
+(mapc (lambda (x) (apply #'spacemacs/declare-prefix x))
+      spacemacs/my-key-binding-prefixes)
+
 )
 
 (defun dotspacemacs/user-config ()
