@@ -57,26 +57,6 @@ psql () {
   fi
 }
 
-######################
-# Export vars
-######################
-
-export ZSH=/home/vs/.oh-my-zsh
-export LANG=en_US.UTF-8
-export EDITOR='nvim'
-export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-export PATH="$HOME/.rbenv/bin:$PATH"
-export MANPATH="/usr/local/man:$MANPATH"
-# export ARCHFLAGS="-arch x86_64"
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-export SLACK_WEBHOOK_URI="https://hooks.slack.com/services/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"
-
-# Brewww
-export PATH="$PATH:$HOME/.linuxbrew/bin"
-export MANPATH="$MANPATH:$HOME/.linuxbrew/share/man"
-export INFOPATH="$INFOPATH:$HOME/.linuxbrew/share/info"
-
-
 ###############################
 # Inits, sourcing and plugins
 ###############################
