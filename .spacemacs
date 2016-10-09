@@ -51,7 +51,9 @@ values."
      elixir
 
      ;; Ruby
-     (ruby :variables ruby-version-manager 'rbenv)
+     (ruby :variables
+           ruby-version-manager 'rbenv
+           ruby-test-runner 'rspec)
      ruby-on-rails
 
      ;; Other
@@ -253,48 +255,54 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
-(defun notes-open-general ()
-  (find-file-existing "~/notes/note.org"))
-(defun notes-open-books()
-  (find-file-existing "~/notes/books_note.org"))
-(defun notes-open-developer()
-  (find-file-existing "~/notes/developer_note.org"))
+  (defun notes-open-general ()
+    (interactive)
+    (find-file-existing "~/notes/note.org"))
+  (defun notes-open-books()
+    (interactive)
+    (find-file-existing "~/notes/books_note.org"))
+  (defun notes-open-developer()
+    (interactive)
+    (find-file-existing "~/notes/developer_note.org"))
 
-(load-file "~/.emacs.d/private/local/amarok.el")
+  (load-file "~/.emacs.d/private/local/amarok.el")
 
-(defun start-all-docker-images ()
-  (interactive)
-  (shell-command-to-string "docker restart postgres")
-  (shell-command-to-string "docker restart redis")
-  (shell-command-to-string "docker restart neo4j")
-  (spacemacs-buffer/warning "Docker images started"))
+  (defun start-all-docker-images ()
+    (interactive)
+    (shell-command-to-string "docker restart postgres")
+    (shell-command-to-string "docker restart redis")
+    (shell-command-to-string "docker restart neo4j")
+    (spacemacs-buffer/warning "Docker images started"))
 
-(defun deploy ()
-  (interactive)
-  (let ((default-directory (projectile-project-root)))
-    (message (shell-command-to-string "./deploy.sh"))))
+  (defun deploy ()
+    (interactive)
+    (let ((default-directory (projectile-project-root)))
+      (message (shell-command-to-string "./deploy.sh"))))
+
+  (defun new_mix_project (&optional name)
+    (interactive "P")
+    (let ((name "app"))
+      (let ((default-directory "~/Work/Elixir")))
+      (when name
+        (setq name (read-from-minibuffer "Name: ")))
+      (shell-command-to-string (format "mix new %s" name))))
 
 
-(defun nothing())
-(defun new_zen()
-  ;; Write stuff to write new zen note
-  )
+  (defun nothing())
+  (defun new_zen()
+    ;; Write stuff to write new zen note
+    )
 
-(spacemacs/set-leader-keys
-  "aaP" 'amarok-play
-  "aap" 'amarok-play-pause
-  "aas" 'amarok-pause
-  "oda" 'start-all-docker-images
-  "onn" 'notes-open-general
-  "onb" 'notes-open-books
-  "ond" 'notes-open-developer)
+  (spacemacs/set-leader-keys
+    "aaP" 'amarok-play
+    "aap" 'amarok-play-pause
+    "aas" 'amarok-pause
+    "oda" 'start-all-docker-images
+    "owm" 'new_mix_project
+    "onn" 'notes-open-general
+    "onb" 'notes-open-books
+    "ond" 'notes-open-developer)
 
-(setq my-key-binding-prefixes '(("o"   "other" )
-                                ("od"  "docker")
-                                ("on"  "notes" )
-                                ("aa"  "amarok")))
-(mapc (lambda (x) (apply #'spacemacs/declare-prefix x))
-      my-key-binding-prefixes)
 )
 
 (defun dotspacemacs/user-config ()
@@ -304,10 +312,17 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (dolist (x '(("o"  . "other" )
+               ("od" . "docker")
+               ("on" . "notes" )
+               ("ow" . "work")
+               ("aa" . "amarok")))
+    (spacemacs/declare-prefix (car x) (cdr x)))
 
   (linum-relative-toggle)
   (spacemacs/toggle-evil-cleverparens-on)
   ;(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+  (setq alchemist-goto-elixir-source-dir "/home/vs/Work/Elixir/elixir")
 
   ;; Suptitute for C-i in terminal
   (define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)
@@ -316,11 +331,10 @@ you should place your code here."
 
   ;; Special (winkey) shortcuts
   (define-key evil-normal-state-map (kbd "s-S") 'save-buffer)
-  (define-key evil-normal-state-map (kbd "s-l") 'avy-goto-line)
+  (define-key evil-normal-state-map (kbd "s-;") 'evil-avy-goto-line)
   (define-key evil-normal-state-map (kbd "s-w") 'evil-avy-goto-word-1)
-  (define-key evil-normal-state-map (kbd "s-j") 'evil-avy-goto-char)
-  (define-key evil-normal-state-map (kbd "s-D") 'start-my-docker-images)
-  ;;(define-key evil-normal-state-map (kbd "s-`") 'spacemacs/jump-to-last-layout)
+  (define-key evil-normal-state-map (kbd "s-'") 'evil-avy-goto-char)
+  (define-key evil-normal-state-map (kbd "s-D") 'start-all-docker-images)
   (global-set-key (kbd "s-`") 'spacemacs/jump-to-last-layout)
 
   ;; Disable annoying keys
@@ -335,7 +349,6 @@ you should place your code here."
   (setq js2-strict-missing-semi-warning nil)
   (setq js2-missing-semi-one-line-override nil)
 
-  (inhibit-startup-screen t)
   ;(spacemacs/home)
 
  )
@@ -347,9 +360,10 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol t)
  '(package-selected-packages
    (quote
-    (web-mode projectile-rails persp-mode org-plus-contrib neotree js2-refactor help-fns+ helm-themes helm-descbinds helm-ag alchemist ace-jump-helm-line iedit smartparens elixir-mode flycheck helm markdown-mode projectile magit git-commit yaml-mode xterm-color xkcd ws-butler with-editor window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spotify spacemacs-theme spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv ranger rake rainbow-mode rainbow-identifiers rainbow-delimiters quelpa popwin pkg-info paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file multiple-cursors multi-term move-text mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js-doc jade-mode info+ inflections indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-swoop helm-spotify helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-css-scss helm-core helm-company helm-c-yasnippet google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md flyspell-correct-helm flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang engine-mode emmet-mode elisp-slime-nav dumb-jump disable-mouse define-word company-web company-tern company-statistics column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ac-ispell)))
+    (pug-mode f undo-tree js2-mode s hyde web-mode projectile-rails persp-mode org-plus-contrib neotree js2-refactor help-fns+ helm-themes helm-descbinds helm-ag alchemist ace-jump-helm-line iedit smartparens elixir-mode flycheck helm markdown-mode projectile magit git-commit yaml-mode xterm-color xkcd ws-butler with-editor window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spotify spacemacs-theme spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv ranger rake rainbow-mode rainbow-identifiers rainbow-delimiters quelpa popwin pkg-info paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file multiple-cursors multi-term move-text mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js-doc jade-mode info+ inflections indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-swoop helm-spotify helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-css-scss helm-core helm-company helm-c-yasnippet google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md flyspell-correct-helm flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang engine-mode emmet-mode elisp-slime-nav dumb-jump disable-mouse define-word company-web company-tern company-statistics column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ac-ispell)))
  '(paradox-github-token t))
 
 (custom-set-faces
