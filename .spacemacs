@@ -40,6 +40,7 @@ values."
 
      ;; Common Languages
      ; dockerfile
+     docker
      markdown
      html
      colors

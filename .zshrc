@@ -39,6 +39,9 @@ alias rake='bundle exec rake'
 alias gpds='git push && ./deploy.sh staging'
 alias gamend='git commit -a --amend'
 
+alias err='systemctl restart --user emacs'
+alias est='systemctl stop    --user emacs'
+
 ######################
 ## Custom vars
 ######################
