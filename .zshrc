@@ -24,8 +24,8 @@ alias stmux="vim ~/.tmux.conf"
 alias  svim="vim ~/.vimrc"
 
 alias  note="vim ~/notes/note.org"
-alias bnote="vim ~/notes/books_note.org"
-alias dnote="vim ~/notes/developer_note.org"
+alias bnote="vim ~/notes/books.org"
+alias dnote="vim ~/notes/developer.org"
 
 alias mine='sudo chown -R $USER'
 
