@@ -9,6 +9,7 @@ ENABLE_CORRECTION="true"
 # CASE_SENSITIVE="true"
 # HYPHEN_INSENSITIVE="true"
 # DISABLE_AUTO_TITLE="true"
+source ".zshenv"
 
 #####################
 ## Aliases
@@ -42,11 +43,14 @@ alias gamend='git commit -a --amend'
 alias err='systemctl restart --user emacs'
 alias est='systemctl stop    --user emacs'
 
+## Places
+alias Work="~/Work"
+alias x="/home/x"
+
 ######################
 ## Custom vars
 ######################
 
-Work="~/Work"
 
 run_specs_and_notify () {
   rake
