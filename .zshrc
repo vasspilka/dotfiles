@@ -9,7 +9,7 @@ ENABLE_CORRECTION="true"
 # CASE_SENSITIVE="true"
 # HYPHEN_INSENSITIVE="true"
 # DISABLE_AUTO_TITLE="true"
-source ".zshenv"
+source "/home/vs/.zshenv"
 
 #####################
 ## Aliases
@@ -29,6 +29,12 @@ alias bnote="vim ~/notes/books.org"
 alias dnote="vim ~/notes/developer.org"
 
 alias mine='sudo chown -R $USER'
+
+alias open='xdg-open'
+
+alias mixs='iex -S mix'
+alias ptm='mix ecto.migrate -r Contracts.Repo; mix ecto.migrate -r People.Repo'
+alias ptrr='cd ~/Work/PTTours; mix ecto.drop; mix ecto.create'
 
 ## Ruby
 alias be='bundle exec'
@@ -53,7 +59,11 @@ alias x="/home/x"
 
 
 run_specs_and_notify () {
-  rake
+  if rake
+  then
+  else
+    tmux select-window -t $SESSION:3
+  fi
 }
 
 psql () {

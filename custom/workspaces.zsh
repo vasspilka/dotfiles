@@ -18,7 +18,7 @@ tmux_base_session_and_windows() {
 
 glide () {
   SESSION="Glider"
-  cd ~/Work/Gliderpath
+  cd ~/Work/Legacy/Gliderpath
 
   docker restart postgres&
   docker restart redis&
