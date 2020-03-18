@@ -28,10 +28,7 @@ install_rbenv () {
 }
 
 install_docker_cont () {
-  docker run -p 5432:5432 -d --name postgres postgres
-  docker run -p 6379:6379 -d --name redis redis
-  docker run -p 7474:7474 -d --name neo4j -v ~/neo4j/data:/data -v ~/neo4j/conf:/conf neo4j
-  docker run -p 9200:9200 -p 9300:9300 -d --name elastic elasticsearch
+  docker run -p 5432:5432 -v /run/postgresql:/run/postgresql -d --name postgres postgres -c 'shared_buffers=512MB' -c 'max_connections=400'
 }
 
 link_libudev () {

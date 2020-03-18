@@ -14,8 +14,9 @@ values."
    dotspacemacs-ask-for-lazy-installation t
    dotspacemacs-configuration-layer-path '()
 
-   dotspacemacs-configuration-layers
-   '(
+   dotspacemacs-configuration-layers'(csv
+                                      nginx
+     typescript
      ;; Emacs
      emacs-lisp
 
@@ -36,7 +37,9 @@ values."
      search-engine
      spell-checking
      ranger
+     systemd
      evil-cleverparens
+     ;prodigy
 
      ;; Common Languages
      ; dockerfile
@@ -44,8 +47,11 @@ values."
      markdown
      html
      colors
-     javascript
      yaml
+
+     typescript
+     javascript
+     react
 
      ;; Elixir & Erlang
      erlang
@@ -64,7 +70,7 @@ values."
 
      ;; version-control
      )
-   dotspacemacs-additional-packages '(disable-mouse)
+   dotspacemacs-additional-packages '(graphql-mode) ; disable-mouse
    ;; Packages to think about: oauth2 websocket request circe alert emojify
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages '()
@@ -114,7 +120,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 32
+                               :size 19
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -156,7 +162,7 @@ values."
    dotspacemacs-display-default-layout t
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts t
+   dotspacemacs-auto-resume-layouts nil
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
@@ -245,7 +251,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'all
    ))
 
 (defun dotspacemacs/user-init ()
@@ -258,21 +264,19 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (defun notes-open-general ()
     (interactive)
-    (find-file-existing "~/notes/note.org"))
+    (find-file-existing "/home/x/Work/personal/writings/notes/note.org"))
   (defun notes-open-books()
     (interactive)
-    (find-file-existing "~/notes/books_note.org"))
+    (find-file-existing "/home/x/Work/personal/writings/notes/books.org"))
   (defun notes-open-developer()
     (interactive)
-    (find-file-existing "~/notes/developer_note.org"))
+    (find-file-existing "/home/x/Work/personal/writings/notes/developer.org"))
 
   (load-file "~/.emacs.d/private/local/amarok.el")
 
   (defun start-all-docker-images ()
     (interactive)
     (shell-command-to-string "docker restart postgres")
-    (shell-command-to-string "docker restart redis")
-    (shell-command-to-string "docker restart neo4j")
     (spacemacs-buffer/warning "Docker images started"))
 
   (defun deploy ()
@@ -329,12 +333,13 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "M-o") 'evil-jump-forward)
 
   ;; Common shortcuts
+  (global-set-key (kbd "C-s") 'save-buffer)
 
   ;; Special (winkey) shortcuts
   (define-key evil-normal-state-map (kbd "s-S") 'save-buffer)
   (define-key evil-normal-state-map (kbd "s-;") 'evil-avy-goto-line)
   (define-key evil-normal-state-map (kbd "s-w") 'evil-avy-goto-word-1)
-  (define-key evil-normal-state-map (kbd "s-'") 'evil-avy-goto-char)
+  (define-key evil-normal-state-map (kbd "s-a") 'evil-avy-goto-char)
   (define-key evil-normal-state-map (kbd "s-D") 'start-all-docker-images)
   (global-set-key (kbd "s-`") 'spacemacs/jump-to-last-layout)
 
@@ -342,13 +347,40 @@ you should place your code here."
   (dolist (key '("\M-k"))
     (global-unset-key key))
   ; Disable mouse
-  (define-key evil-normal-state-map (kbd "<down-mouse-1>") 'nothing)
-  (dolist (mouse '("<down-mouse-1>" "<mouse-1>"))
-    (global-unset-key (kbd mouse)))
+  ;; (define-key evil-normal-state-map (kbd "<down-mouse-1>") 'nothing)
+  ;; (dolist (mouse '("<down-mouse-1>" "<mouse-1>"))
+  ;;   (global-unset-key (kbd mouse)))
 
   ; ES6 JS
   (setq js2-strict-missing-semi-warning nil)
   (setq js2-missing-semi-one-line-override nil)
+
+  (setq-default
+   standard-indent 2
+   tab-width 2
+   indent-tabs-mode nil
+
+   ;; js2-mode
+   js2-strict-semi-warning nil
+   js2-missing-semi-one-line-override nil
+   js2-basic-offset 2
+   js-indent-level 2
+
+   ;; ts indent
+   typescript-indent-level 2
+
+   ;; web-mode
+   web-mode-indent-style 2
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
+
+  (with-eval-after-load 'web-mode
+    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 
   ;(spacemacs/home)
 
@@ -364,7 +396,7 @@ you should place your code here."
  '(evil-want-Y-yank-to-eol t)
  '(package-selected-packages
    (quote
-    (pug-mode f undo-tree js2-mode s hyde web-mode projectile-rails persp-mode org-plus-contrib neotree js2-refactor help-fns+ helm-themes helm-descbinds helm-ag alchemist ace-jump-helm-line iedit smartparens elixir-mode flycheck helm markdown-mode projectile magit git-commit yaml-mode xterm-color xkcd ws-butler with-editor window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spotify spacemacs-theme spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv ranger rake rainbow-mode rainbow-identifiers rainbow-delimiters quelpa popwin pkg-info paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file multiple-cursors multi-term move-text mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js-doc jade-mode info+ inflections indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-swoop helm-spotify helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-css-scss helm-core helm-company helm-c-yasnippet google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md flyspell-correct-helm flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang engine-mode emmet-mode elisp-slime-nav dumb-jump disable-mouse define-word company-web company-tern company-statistics column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ac-ispell)))
+    (org-mime lv helm-spotify-plus graphql-mode transient csv-mode org-category-capture nginx-mode systemd tide typescript-mode ob-elixir winum powerline pcre2el spinner alert log4e gntp minitest skewer-mode simple-httpd hydra parent-mode hide-comnt multi request haml-mode gitignore-mode gh marshal logito pcache ht fuzzy flyspell-correct pos-tip flycheck-credo flx paredit anzu evil goto-chg highlight dockerfile-mode docker tablist magit-popup docker-tramp json-snatcher json-reformat diminish web-completion-data dash-functional tern inf-ruby bind-map bind-key yasnippet packed company dash epl avy async auto-complete popup pug-mode f undo-tree js2-mode s hyde web-mode projectile-rails persp-mode org-plus-contrib neotree js2-refactor help-fns+ helm-themes helm-descbinds helm-ag alchemist ace-jump-helm-line iedit smartparens elixir-mode flycheck helm markdown-mode projectile magit git-commit yaml-mode xterm-color xkcd ws-butler with-editor window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spotify spacemacs-theme spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv ranger rake rainbow-mode rainbow-identifiers rainbow-delimiters quelpa popwin pkg-info paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file multiple-cursors multi-term move-text mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js-doc jade-mode info+ inflections indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-swoop helm-spotify helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-css-scss helm-core helm-company helm-c-yasnippet google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md flyspell-correct-helm flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang engine-mode emmet-mode elisp-slime-nav dumb-jump define-word company-web company-tern company-statistics column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ac-ispell)))
  '(paradox-github-token t))
 
 (custom-set-faces
@@ -374,3 +406,27 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol t)
+ '(package-selected-packages
+   (quote
+    (symon string-inflection ruby-refactor password-generator org-brain impatient-mode helm-purpose window-purpose imenu-list graphql-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter evil-org evil-lion editorconfig diff-hl csv-mode browse-at-remote org-category-capture nginx-mode systemd tide typescript-mode ob-elixir winum powerline pcre2el spinner alert log4e gntp minitest skewer-mode simple-httpd hydra parent-mode hide-comnt multi request haml-mode gitignore-mode gh marshal logito pcache ht fuzzy flyspell-correct pos-tip flycheck-credo flx paredit anzu evil goto-chg highlight dockerfile-mode docker tablist magit-popup docker-tramp json-snatcher json-reformat diminish web-completion-data dash-functional tern inf-ruby bind-map bind-key yasnippet packed company dash epl avy async auto-complete popup pug-mode f undo-tree js2-mode s hyde web-mode projectile-rails persp-mode org-plus-contrib neotree js2-refactor help-fns+ helm-themes helm-descbinds helm-ag alchemist ace-jump-helm-line iedit smartparens elixir-mode flycheck helm markdown-mode projectile magit git-commit yaml-mode xterm-color xkcd ws-butler with-editor window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spotify spacemacs-theme spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv ranger rake rainbow-mode rainbow-identifiers rainbow-delimiters quelpa popwin pkg-info paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file multiple-cursors multi-term move-text mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js-doc jade-mode info+ inflections indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-swoop helm-spotify helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-css-scss helm-core helm-company helm-c-yasnippet google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md flyspell-correct-helm flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erlang engine-mode emmet-mode elisp-slime-nav dumb-jump define-word company-web company-tern company-statistics column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ac-ispell)))
+ '(paradox-github-token t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+
+)

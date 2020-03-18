@@ -12,6 +12,8 @@ auto-save-list
 tramp
 .\#*
 
+.directory
+
 # Org-mode
 .org-id-locations
 *_archive
@@ -34,13 +36,14 @@ tramp
 
 # cask packages
 .cask/
-dist/
 
 # Flycheck
 flycheck_*.el
 
-# server auth directory
-/server/
+TAGS
 
 # projectiles files
 .projectile
+notes.org
+geckodriver
+selenium-server-standalone-3.8.1.jar
