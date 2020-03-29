@@ -31,6 +31,7 @@ eval `keychain --eval --agents ssh vasspilka`
 
 alias   e="emacsclient -t"
 alias pac="sudo pacman"
+alias doom="~/.doom-emacs/bin/doom"
 
 
 alias  yi="yarn install"

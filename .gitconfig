@@ -2,7 +2,7 @@
 	email = vasspilka@gmail.com
 	name = Vasilis Spilka
 [core]
-	editor = vi
+	editor = vim
 	excludesfile = /home/vs/.gitignore_global
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit

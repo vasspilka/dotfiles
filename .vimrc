@@ -20,37 +20,35 @@ let g:autoswap_detect_tmux = 1
 "" Plugins
 """"""""""""""""""""""""""""""""""""""""""""""
 
-call plug#begin('~/.vim/plugged')
+" call plug#begin('~/.vim/plugged')
 
-Plug 'tyrannicaltoucan/vim-deep-space' " Colorscheme
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'dkprice/vim-easygrep'
-Plug 'gioele/vim-autoswap'
-Plug 'haya14busa/incsearch.vim'
-Plug 'whatyouhide/vim-gotham'
+"  Plug 'tyrannicaltoucan/vim-deep-space' " Colorscheme
+"  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"  Plug 'junegunn/fzf.vim'
+"  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+"  Plug 'dkprice/vim-easygrep'
+"  Plug 'gioele/vim-autoswap'
+"  Plug 'haya14busa/incsearch.vim'
+"  Plug 'whatyouhide/vim-gotham'
+
 "" Consider following plugins
 "  Plug 'junegunn/vim-easy-align'
 "  Plug 'junegunn/goyo.vim'
 
-"" Ruby
-Plug 'janko-m/vim-test'
-
 "" Elixir
-Plug 'elixir-lang/vim-elixir'
-Plug 'slashmili/alchemist.vim'
-Plug 'lucidstack/hex.vim'
-Plug 'thinca/vim-ref'
-Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
+" Plug 'elixir-lang/vim-elixir'
+" Plug 'slashmili/alchemist.vim'
+" Plug 'lucidstack/hex.vim'
+" Plug 'thinca/vim-ref'
+" Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+" Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
 
-call plug#end()
+" call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""
 "" MAPPINGS
@@ -127,7 +125,7 @@ nnoremap @so <C-W>o
 nnoremap @st <C-W>T
 
 ""
-colorscheme deep-space
+" colorscheme deep-space
 
 """"""""""""""""""""""""""""""""""""""""""""""
 "" Let
