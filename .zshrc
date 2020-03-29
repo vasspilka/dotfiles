@@ -3,16 +3,20 @@
 ###########################
 
 ZSH_THEME="xiong-chiamiov-plus"
+ZSH="$HOME/.oh-my-zsh"
 TERM=xterm-256color
 COMPLETION_WAITING_DOTS="true"
 ENABLE_CORRECTION="true"
 BROWSER="/usr/bin/firefox-developer"
 TIMBER_LOGS_KEY="1865_65d5ad3e5c527387:c0efdc3425f4ef401494bb7e40baa7c269865ad9d3492dba2b532ef778872691"
 
+autoload bashcompinit
+bashcompinit
+
 # CASE_SENSITIVE="true"
 # HYPHEN_INSENSITIVE="true"
 # DISABLE_AUTO_TITLE="true"
-source "/home/vs/.zshenv"
+# source "~/.zshenv"
 
 #####################
 ## SSH
@@ -23,6 +27,7 @@ eval `keychain --eval --agents ssh vasspilka`
 # fi
 # if [[ "$SSH_AGENT_PID" == "" ]]; then
 # fi
+
 
 
 #####################
@@ -60,12 +65,6 @@ alias ms='mix phx.server'
 alias mxs='iex -S mix phx.server'
 alias ptrr='mix ecto.reset && MIX_ENV=test mix ecto.reset'
 
-## Ruby
-alias be='bundle exec'
-alias rt="bundle exec rspec"
-alias -g rpsec="rspec"
-alias rake='bundle exec rake'
-
 ## Git
 alias gpds='git push && ./deploy.sh staging'
 alias gamend='git commit -a --amend'
@@ -78,28 +77,15 @@ alias est='systemctl stop    --user emacs'
 alias Work="~/Work"
 alias x="/home/x"
 
-######################
-## Custom vars
-######################
-
-run_specs_and_notify () {
-  if rake
-  then
-  else
-    tmux select-window -t $SESSION:3
-  fi
-}
-
 ###############################
 # Inits, sourcing and plugins
 ###############################
 
-plugins=(git z gem zsh-syntax-highlighting elixir mix docker docker-compose ruby rails)
+plugins=(git z elixir zsh-syntax-highlighting mix docker docker-compose)
 
-source $ZSH/oh-my-zsh.sh
+source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-ZSH_THEME_GIT_PROMPT_PREFIX="(%{$fg[white]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{\e[0;34m%}%B)"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*"
 
@@ -109,12 +95,13 @@ ERL_AFLAGS="-kernel shell_history enabled"
 # No autocorrect
 unsetopt correct_all
 
-
 # sourcing
-test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/nvm/init-nvm.sh
 
 . $HOME/.asdf/asdf.sh
 
 . $HOME/.asdf/completions/asdf.bash
+
+export PATH=$HOME/.utrust-cli/bin:$PATH
+export LOCAL_AWS_USERNAME="vasilis.spilka"
