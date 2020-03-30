@@ -34,7 +34,7 @@ eval `keychain --eval --agents ssh vasspilka`
 ## Aliases
 #####################
 
-alias   e="emacsclient -t"
+alias   e="emacs --with-profile doom -nw"
 alias pac="sudo pacman"
 alias doom="~/.doom-emacs/bin/doom"
 

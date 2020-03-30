@@ -42,8 +42,9 @@ flycheck_*.el
 
 TAGS
 
-# projectiles files
+# project files
 .projectile
+.elixir_ls
 notes.org
 geckodriver
 selenium-server-standalone-3.8.1.jar
