@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Vasilis Spilka"
+      user-mail-address "vasspilka@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -33,6 +33,16 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
+
+;; Sort keys
+(setq which-key-sort-order 'which-key-key-order-alpha)
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(global-set-key (kbd "C-s") 'save-buffer)
+
+;; Configure exunit
+(use-package! exunit)
 
 ;; Taken off https://gist.github.com/darioghilardi/f3415a3d70d4fee5a20bfad862534a37
 ;; Elixir configuration
@@ -90,9 +100,6 @@
         company-lsp-match-candidate-predicate #'company-lsp-match-candidate-prefix
         ))
 
-;; Configure exunit
-(use-package! exunit)
-
 ;; Enable credo checks on flycheck
 ;; (use-package! flycheck-credo
 ;;   :after flycheck
@@ -118,8 +125,9 @@
         :desc "Re-run tests"   :nve  "ctx"   #'exunit-rerun
         :desc "Run single test"   :nve  "cts"   #'exunit-verify-single)
 
+(keychain-refresh-environment)
 
-  (global-set-key (kbd "C-s") 'save-buffer)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
