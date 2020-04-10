@@ -119,7 +119,7 @@
 (map! :mode elixir-mode
         :leader
         :desc "iMenu" :nve  "c/"    #'lsp-ui-imenu
-        :desc "Toggle Test" :nve  "cT"    #'alchemist-project-toggle-file-and-tests
+        :desc "Toggle Test" :nve  "cT"    #'exunit-toggle-file-and-test
         :desc "Run all tests"   :nve  "ctt"   #'exunit-verify-all
         :desc "Run all in umbrella"   :nve  "ctT"   #'exunit-verify-all-in-umbrella
         :desc "Re-run tests"   :nve  "ctx"   #'exunit-rerun
