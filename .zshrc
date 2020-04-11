@@ -34,7 +34,17 @@ unsetopt correct_all
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
-plugins=(git z zsh-syntax-highlighting mix zsh-autosuggestions zsh-completions)
+
+## Plugins
+source $HOME/antigen.zsh
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+
+antigen apply
+
+plugins=(git z mix)
 
 # Sourcing
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
