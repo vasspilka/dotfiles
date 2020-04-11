@@ -2,8 +2,6 @@
 # ZSH DEFAULTS
 ###########################
 
-
-ZSH_THEME="xiong-chiamiov-plus"
 ZSH="$HOME/.oh-my-zsh"
 TERM=xterm-256color
 ENABLE_CORRECTION="true"
@@ -13,8 +11,14 @@ BROWSER="/usr/bin/goole-chrome-stable"
 # Inits, sourcing and plugins
 ###############################
 
-# Inits
+# Path & Env Exorts
+export PATH=$HOME/.utrust-cli/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
 
+export LOCAL_AWS_USERNAME="vasilis.spilka"
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+# Inits
 # Starship prompts
 eval "$(starship init zsh)"
 # ssh agent to keychain
@@ -23,14 +27,6 @@ eval `keychain --eval --agents ssh vasspilka`
 autoload bashcompinit
 bashcompinit
 autoload -U compinit && compinit
-
-
-# Path & Env Exorts
-export PATH=$HOME/.utrust-cli/bin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-
-export LOCAL_AWS_USERNAME="vasilis.spilka"
-export ERL_AFLAGS="-kernel shell_history enabled"
 
 # No autocorrect
 unsetopt correct_all
