@@ -4,14 +4,14 @@
 
 ZSH="$HOME/.oh-my-zsh"
 TERM=xterm-256color
-ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 BROWSER="/usr/bin/goole-chrome-stable"
 
 ###############################
 # Inits, sourcing and plugins
 ###############################
 
-# Path & Env Exorts
+# Path & Env Exports
 export PATH=$HOME/.utrust-cli/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 

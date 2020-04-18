@@ -19,6 +19,9 @@ install_dev_tools() {
   # Starship prompt ++
   curl -fsSL https://starship.rs/install.sh | bash
 
+  # Fish
+  # mkdir -p ~/.config/fish/completions; and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+
   # Zsh stuff
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   curl -L git.io/antigen > ~/antigen.zsh
@@ -38,3 +41,6 @@ do
   rm -rf ~/$file
   ln -v -s `pwd`/$file ~
 done
+
+echo "Setup config files"
+# todo
