@@ -2,12 +2,19 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
+;;
+;;
 
+;; Setup ENV for MAC
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Vasilis Spilka"
-      user-mail-address "vasspilka@gmail.com")
+      user-mail-address "vasspilka@gmail.com"
+      projectile-project-search-path '("~/Work" "~/Work/utrust")
+      )
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -20,6 +27,8 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "Source Code Pro" :size 18))
+(setq display-line-numbers-type nil)
+
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -46,26 +55,6 @@
 
 ;; Taken off https://gist.github.com/darioghilardi/f3415a3d70d4fee5a20bfad862534a37
 ;; Elixir configuration
-;; Start by configuring Alchemist for some tasks.
-(use-package! alchemist
-  :hook (elixir-mode . alchemist-mode)
-  :config
-  (set-lookup-handlers! 'elixir-mode
-    :definition #'alchemist-goto-definition-at-point
-    :documentation #'alchemist-help-search-at-point)
-  (set-eval-handler! 'elixir-mode #'alchemist-eval-region)
-  (set-repl-handler! 'elixir-mode #'alchemist-iex-project-run)
-  (setq alchemist-mix-env "dev")
-  (setq alchemist-hooks-compile-on-save t)
-  (map! :map elixir-mode-map :nv "m" alchemist-mode-keymap))
-
-;; Now configure LSP mode and set the client filepath.
-(use-package! lsp-mode
-  :commands lsp
-  :config
-  (setq lsp-enable-file-watchers nil)
-  :hook
-  (elixir-mode . lsp))
 
 (after! lsp-clients
   (lsp-register-client
@@ -100,25 +89,20 @@
         company-lsp-match-candidate-predicate #'company-lsp-match-candidate-prefix
         ))
 
-;; Enable credo checks on flycheck
-;; (use-package! flycheck-credo
-;;   :after flycheck
-;;   :config
-;;     (flycheck-credo-setup)
-;;     (after! lsp-ui
-;;       (flycheck-add-next-checker 'lsp-ui 'elixir-credo)))
+(set-file-template! "\\.html$"
+  :mode 'web-mode
+  :ignore t)
 
-;; Enable format and iex reload on save
-(after! lsp
-  (add-hook 'elixir-mode-hook
-            (lambda ()
-              (add-hook 'before-save-hook 'elixir-format nil t)
-              (add-hook 'after-save-hook 'alchemist-iex-reload-module))))
+(set-file-template! "**"
+  :mode 'web-mode
+  :ignore t)
 
 ;; Setup some keybindings for exunit and lsp-ui
 (map! :mode elixir-mode
         :leader
         :desc "iMenu" :nve  "c/"    #'lsp-ui-imenu
+        :desc "Format file" :nve  "cf"    #'+default/lsp-format-region-or-buffer
+        :desc "Mix format" :nve  "cF"    #'elixir-format--from-mix-root
         :desc "Toggle Test" :nve  "cT"    #'exunit-toggle-file-and-test
         :desc "Run all tests"   :nve  "ctt"   #'exunit-verify-all
         :desc "Run all in umbrella"   :nve  "ctT"   #'exunit-verify-all-in-umbrella

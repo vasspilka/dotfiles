@@ -21,6 +21,7 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 (package! exunit)
+(package! exec-path-from-shell)
 (package! keychain-environment)
 
 ;; To install a package directly from a particular repo, you'll need to specify
@@ -38,7 +39,8 @@
 
 ;; If you'd like to disable a package included with Doom, for whatever reason,
 ;; you can do so here with the `:disable' property:
-;(package! builtin-package :disable t)
+(package! alchemist :disable t)
+(package! evil-escape :disable t)
 
 ;; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe
