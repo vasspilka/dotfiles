@@ -8,7 +8,7 @@ if not functions -q fisher
 end
 
 if status --is-interactive
-  keychain --quiet --agents ssh vasspilka
+  eval (keychain --eval --agents ssh -Q --quiet vasspilka --nogui)
 end
 
 # Path & Env Exports
@@ -23,27 +23,6 @@ set fish_greeting
 starship init fish | source
 
 source ~/.asdf/asdf.fish
-
-#####################
-## Function
-#####################
-
-function gdh
-    git diff HEAD~$1
-end
-
-function grhh
-  if $1
-    git reset --hard HEAD~$1
-  else
-    git reset --hard HEAD
-  end
-end
-
-function gcu
-    git add .
-    git commit -m "update"
-end
 
 #####################
 ## Aliases
@@ -82,7 +61,30 @@ alias gamend='git commit -a --amend'
 alias gitdeletemerged='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
 alias gst='git status'
 alias gd='git diff'
+alias gco='git checkout'
 
 ## Places
 alias Work='cd ~/Work'
 alias x='cd /home/x'
+
+
+#####################
+## Functions
+#####################
+
+function gdh
+    git diff HEAD~$argv
+end
+
+function grhh
+  if $argv
+    git reset --hard HEAD~$argv
+  else
+    git reset --hard HEAD
+  end
+end
+
+function gcu
+    git add .
+    git commit -m "update"
+end

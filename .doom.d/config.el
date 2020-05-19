@@ -48,6 +48,10 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+(defun test-vas()
+  (evil-end-of-line)
+  (insert " |> IO.inspect"))
+
 (global-set-key (kbd "C-s") 'save-buffer)
 
 ;; Configure exunit
@@ -104,6 +108,7 @@
         :desc "Format file" :nve  "cf"    #'+default/lsp-format-region-or-buffer
         :desc "Mix format" :nve  "cF"    #'elixir-format--from-mix-root
         :desc "Toggle Test" :nve  "cT"    #'exunit-toggle-file-and-test
+        :desc "Inspect" :nve  "cI"    #'test-vas
         :desc "Run all tests"   :nve  "ctt"   #'exunit-verify-all
         :desc "Run all in umbrella"   :nve  "ctT"   #'exunit-verify-all-in-umbrella
         :desc "Re-run tests"   :nve  "ctx"   #'exunit-rerun
