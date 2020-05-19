@@ -38,6 +38,8 @@ unsetopt correct_all
 ## Plugins
 source $HOME/antigen.zsh
 
+source $HOME/Work/utrust/platform/.env.dev
+
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
@@ -90,3 +92,5 @@ alias gitdeletemerged='git branch --merged | egrep -v "(^\*|master|dev)" | xargs
 ## Places
 alias Work="~/Work"
 alias x="/home/x"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+export PATH="~/.asdf/installs/rust/stable/bin:$PATH"
