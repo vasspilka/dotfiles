@@ -13,7 +13,7 @@ BROWSER="/usr/bin/goole-chrome-stable"
 
 # Path & Env Exports
 export PATH=$HOME/.utrust-cli/bin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.asdf/installs/rust/stable/bin:$PATH
 
 export LOCAL_AWS_USERNAME="vasilis.spilka"
 export ERL_AFLAGS="-kernel shell_history enabled"
@@ -37,8 +37,6 @@ unsetopt correct_all
 
 ## Plugins
 source $HOME/antigen.zsh
-
-source $HOME/Work/utrust/platform/.env.dev
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
@@ -78,6 +76,7 @@ alias dnote="e ~/notes/developer.org"
 
 alias mine='sudo chown -R $USER'
 alias open='xdg-open'
+alias tmux='tmux -u'
 
 ## Elixir Phoenix
 alias  mt="mix test"
