@@ -20,7 +20,6 @@
 
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
-(package! exunit)
 (package! fish-mode)
 (package! exec-path-from-shell)
 (package! keychain-environment)

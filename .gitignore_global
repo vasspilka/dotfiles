@@ -42,6 +42,8 @@ flycheck_*.el
 
 TAGS
 
+/.elixir_ls/
+
 # project files
 .projectile
 .elixir_ls

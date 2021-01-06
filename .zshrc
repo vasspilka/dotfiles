@@ -14,9 +14,13 @@ BROWSER="/usr/bin/goole-chrome-stable"
 # Path & Env Exports
 export PATH=$HOME/.utrust-cli/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
+# export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.asdf/installs/nodejs/10.16.3/.npm/bin:$PATH
+export PATH=$HOME/elixir-ls/release:$PATH
 
 export LOCAL_AWS_USERNAME="vasilis.spilka"
 export ERL_AFLAGS="-kernel shell_history enabled"
+export KERL_BUILD_DOCS=yes
 
 # Inits
 # Starship prompts
@@ -37,8 +41,6 @@ unsetopt correct_all
 
 ## Plugins
 source $HOME/antigen.zsh
-
-source $HOME/Work/utrust/platform/.env.dev
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
@@ -84,6 +86,8 @@ alias  mt="mix test"
 alias mixs='iex -S mix'
 alias ms='mix phx.server'
 alias mxs='iex -S mix phx.server'
+alias mck='mix do format, credo, dialyzer'
+# alias mdrr='mix do ecto.drop, ecto.create, event_store.drop, event_store.create, event_store.init, event_store.migrate, ecto.migrate'
 
 ## Git
 alias gamend='git commit -a --amend'

@@ -60,22 +60,27 @@
 ;; Taken off https://gist.github.com/darioghilardi/f3415a3d70d4fee5a20bfad862534a37
 ;; Elixir configuration
 
-(after! lsp-clients
-  (lsp-register-client
-   (make-lsp-client :new-connection
-    (lsp-stdio-connection
-        (expand-file-name
-          "~/elixir-ls/release/language_server.sh"))
-        :major-modes '(elixir-mode)
-        :priority -1
-        :server-id 'elixir-ls
-        :initialized-fn (lambda (workspace)
-            (with-lsp-workspace workspace
-             (let ((config `(:elixirLS
-                             (:mixEnv "dev"
-                                     :dialyzerEnabled
-                                     :json-false))))
-             (lsp--set-configuration config)))))))
+
+;; I should do instead
+;; (add-to-list 'exec-path "${elixir-lsp}/bin")
+;; (setq lsp-clients-elixir-server-executable "elixir-ls")
+
+;; (after! lsp-clients
+;;   (lsp-register-client
+;;    (make-lsp-client :new-connection
+;;     (lsp-stdio-connection
+;;         (expand-file-name
+;;           "~/elixir-ls/release/language_server.sh"))
+;;         :major-modes '(elixir-mode)
+;;         :priority -1
+;;         :server-id 'elixir-ls
+;;         :initialized-fn (lambda (workspace)
+;;             (with-lsp-workspace workspace
+;;              (let ((config `(:elixirLS
+;;                              (:mixEnv "dev"
+;;                                      :dialyzerEnabled
+;;                                      :json-false))))
+;;              (lsp--set-configuration config)))))))
 
 ;; Configure LSP-ui to define when and how to display informations.
 (after! lsp-ui
@@ -105,14 +110,8 @@
 (map! :mode elixir-mode
         :leader
         :desc "iMenu" :nve  "c/"    #'lsp-ui-imenu
-        :desc "Format file" :nve  "cf"    #'+default/lsp-format-region-or-buffer
-        :desc "Mix format" :nve  "cF"    #'elixir-format--from-mix-root
         :desc "Toggle Test" :nve  "cT"    #'exunit-toggle-file-and-test
-        :desc "Inspect" :nve  "cI"    #'test-vas
-        :desc "Run all tests"   :nve  "ctt"   #'exunit-verify-all
-        :desc "Run all in umbrella"   :nve  "ctT"   #'exunit-verify-all-in-umbrella
-        :desc "Re-run tests"   :nve  "ctx"   #'exunit-rerun
-        :desc "Run single test"   :nve  "cts"   #'exunit-verify-single)
+        :desc "Inspect" :nve  "cI"    #'test-vas)
 
 (keychain-refresh-environment)
 
