@@ -48,5 +48,6 @@ TAGS
 .projectile
 .elixir_ls
 notes.org
+todo.org
 geckodriver
 selenium-server-standalone-3.8.1.jar

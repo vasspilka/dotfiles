@@ -13,7 +13,7 @@
 ;; clients, file templates and snippets.
 (setq user-full-name "Vasilis Spilka"
       user-mail-address "vasspilka@gmail.com"
-      projectile-project-search-path '("~/Work" "~/Work/utrust")
+      projectile-project-search-path '("~/Work")
       )
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
@@ -53,6 +53,7 @@
   (insert " |> IO.inspect"))
 
 (global-set-key (kbd "C-s") 'save-buffer)
+(global-set-key (kbd "s-s") 'save-buffer)
 
 ;; Configure exunit
 (use-package! exunit)

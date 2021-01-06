@@ -12,11 +12,10 @@ BROWSER="/usr/bin/goole-chrome-stable"
 ###############################
 
 # Path & Env Exports
-export PATH=$HOME/.utrust-cli/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
-# export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.asdf/installs/nodejs/10.16.3/.npm/bin:$PATH
 export PATH=$HOME/elixir-ls/release:$PATH
+export PATH=$HOME/.asdf/installs/rust/stable/bin:$PATH
 
 export LOCAL_AWS_USERNAME="vasilis.spilka"
 export ERL_AFLAGS="-kernel shell_history enabled"
@@ -80,6 +79,7 @@ alias dnote="e ~/notes/developer.org"
 
 alias mine='sudo chown -R $USER'
 alias open='xdg-open'
+alias tmux='tmux -u'
 
 ## Elixir Phoenix
 alias  mt="mix test"
