@@ -16,6 +16,7 @@ export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.asdf/installs/nodejs/10.16.3/.npm/bin:$PATH
 export PATH=$HOME/elixir-ls/release:$PATH
 export PATH=$HOME/.asdf/installs/rust/stable/bin:$PATH
+# export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 export LOCAL_AWS_USERNAME="vasilis.spilka"
 export ERL_AFLAGS="-kernel shell_history enabled"

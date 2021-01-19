@@ -30,6 +30,7 @@
 (setq display-line-numbers-type nil)
 
 
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -61,58 +62,27 @@
 ;; Taken off https://gist.github.com/darioghilardi/f3415a3d70d4fee5a20bfad862534a37
 ;; Elixir configuration
 
-
 ;; I should do instead
 ;; (add-to-list 'exec-path "${elixir-lsp}/bin")
 ;; (setq lsp-clients-elixir-server-executable "elixir-ls")
 
-;; (after! lsp-clients
-;;   (lsp-register-client
-;;    (make-lsp-client :new-connection
-;;     (lsp-stdio-connection
-;;         (expand-file-name
-;;           "~/elixir-ls/release/language_server.sh"))
-;;         :major-modes '(elixir-mode)
-;;         :priority -1
-;;         :server-id 'elixir-ls
-;;         :initialized-fn (lambda (workspace)
-;;             (with-lsp-workspace workspace
-;;              (let ((config `(:elixirLS
-;;                              (:mixEnv "dev"
-;;                                      :dialyzerEnabled
-;;                                      :json-false))))
-;;              (lsp--set-configuration config)))))))
-
-;; Configure LSP-ui to define when and how to display informations.
-(after! lsp-ui
-  (setq lsp-ui-doc-max-height 20
-        lsp-ui-doc-max-width 80
-        lsp-ui-sideline-ignore-duplicate t
-        lsp-ui-doc-header t
-        lsp-ui-doc-include-signature t
-        lsp-ui-doc-position 'bottom
-        lsp-ui-doc-use-webkit nil
-        lsp-ui-flycheck-enable t
-        lsp-ui-imenu-kind-position 'left
-        lsp-ui-sideline-code-actions-prefix "💡"
-        ;; fix for completing candidates not showing after “Enum.”:
-        company-lsp-match-candidate-predicate #'company-lsp-match-candidate-prefix
-        ))
-
-(set-file-template! "\\.html$"
-  :mode 'web-mode
-  :ignore t)
-
-(set-file-template! "**"
-  :mode 'web-mode
-  :ignore t)
-
 ;; Setup some keybindings for exunit and lsp-ui
 (map! :mode elixir-mode
-        :leader
-        :desc "iMenu" :nve  "c/"    #'lsp-ui-imenu
-        :desc "Toggle Test" :nve  "cT"    #'exunit-toggle-file-and-test
-        :desc "Inspect" :nve  "cI"    #'test-vas)
+      :leader
+      :desc "Sort Lines" :nve  "l"    #'sort-lines
+      :desc "iMenu" :nve  "c/"    #'lsp-ui-imenu
+      :desc "Toggle Test" :nve  "cT"    #'exunit-toggle-file-and-test
+      :desc "Inspect" :nve  "cI"    #'test-vas)
+
+(after! lsp-mode
+  (dolist (match
+           '("[/\\\\].direnv$"
+             "[/\\\\]node_modules$"
+             "[/\\\\]deps"
+             "[/\\\\]priv"
+             "[/\\\\]build"
+             "[/\\\\]_build"))
+    (add-to-list 'lsp-file-watch-ignored match)))
 
 (keychain-refresh-environment)
 
