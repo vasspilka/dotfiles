@@ -29,8 +29,6 @@
 (setq doom-font (font-spec :family "Source Code Pro" :size 18))
 (setq display-line-numbers-type nil)
 
-
-
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -49,9 +47,12 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(defun test-vas()
-  (evil-end-of-line)
-  (insert " |> IO.inspect"))
+(defun elixir-append-inspect ()
+  (interactive)
+  (evil-append-line nil)
+  (insert " |> IO.inspect")
+  (evil-normal-state)
+  )
 
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "s-s") 'save-buffer)
@@ -72,7 +73,7 @@
       :desc "Sort Lines" :nve  "l"    #'sort-lines
       :desc "iMenu" :nve  "c/"    #'lsp-ui-imenu
       :desc "Toggle Test" :nve  "cT"    #'exunit-toggle-file-and-test
-      :desc "Inspect" :nve  "cI"    #'test-vas)
+      :desc "Inspect" :nve  "cI"    #'elixir-append-inspect)
 
 (after! lsp-mode
   (dolist (match

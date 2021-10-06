@@ -14,6 +14,7 @@ BROWSER="/usr/bin/goole-chrome-stable"
 # Path & Env Exports
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.asdf/installs/nodejs/10.16.3/.npm/bin:$PATH
+export PATH=$HOME/.asdf/installs/nodejs/15.8.0/.npm/bin:$PATH
 export PATH=$HOME/elixir-ls/release:$PATH
 export PATH=$HOME/.asdf/installs/rust/stable/bin:$PATH
 # export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -48,7 +49,7 @@ antigen bundle zsh-users/zsh-completions
 
 antigen apply
 
-plugins=(git z mix)
+plugins=(git z mix asdf)
 
 # Sourcing
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
@@ -82,6 +83,9 @@ alias mine='sudo chown -R $USER'
 alias open='xdg-open'
 alias tmux='tmux -u'
 
+alias dk='docker'
+alias dkc='docker-compose'
+
 ## Elixir Phoenix
 alias  mt="mix test"
 alias mixs='iex -S mix'
@@ -99,3 +103,9 @@ alias Work="~/Work"
 alias x="/home/x"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="~/.asdf/installs/rust/stable/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/vasilisspilka/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/vasilisspilka/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/vasilisspilka/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/vasilisspilka/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
