@@ -27,7 +27,7 @@ export KERL_BUILD_DOCS=yes
 # Starship prompts
 eval "$(starship init zsh)"
 # ssh agent to keychain
-eval `keychain --eval --agents ssh vasspilka`
+# eval `keychain --eval --agents ssh vasspilka`
 
 autoload bashcompinit
 bashcompinit
@@ -43,16 +43,16 @@ unsetopt correct_all
 ## Plugins
 source $HOME/antigen.zsh
 
+plugins=(git z mix)
+
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
+antigen use oh-my-zsh
 
 antigen apply
 
 plugins=(git z mix asdf)
-
-# Sourcing
-source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -91,7 +91,7 @@ alias  mt="mix test"
 alias mixs='iex -S mix'
 alias ms='mix phx.server'
 alias mxs='iex -S mix phx.server'
-alias mck='mix do format, credo, dialyzer'
+alias mck='mix do format, credo, dialyzer, test'
 # alias mdrr='mix do ecto.drop, ecto.create, event_store.drop, event_store.create, event_store.init, event_store.migrate, ecto.migrate'
 
 ## Git
@@ -105,7 +105,10 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="~/.asdf/installs/rust/stable/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/vasilisspilka/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/vasilisspilka/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '~/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/vasilisspilka/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/vasilisspilka/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '~/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+export PATH="/usr/local/opt/libpq/bin:$PATH"
