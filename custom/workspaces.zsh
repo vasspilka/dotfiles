@@ -16,24 +16,6 @@ tmux_base_session_and_windows() {
 }
 
 
-glide () {
-  SESSION="Glider"
-  cd ~/Work/Legacy/Gliderpath
-
-  docker restart postgres&
-  docker restart redis&
-  docker restart elastic&
-
-  tmux has-session -t $SESSION
-  if [ $? != 0 ]
-  then
-    tmux new-session -d -s sidekiq 'sidekiq -C config/sidekiq.yml'
-    tmux_base_session_and_windows
-  fi
-
-  tmux_go
-}
-
 dev_vene () {
   SESSION="Vene"
   cd ~/Work/Vene/backend
@@ -51,22 +33,6 @@ dev_vene () {
 
   tmux_go
 }
-
-dev_vanman () {
-  SESSION="VanMan"
-  cd ~/Work/vanman
-
-  docker restart postgres&
-
-  tmux has-session -t $SESSION
-  if [ $? != 0 ]
-  then
-    tmux_base_session_and_windows
-  fi
-
-  tmux_go
-}
-
 
 dev_blog () {
   SESSION="Blog"

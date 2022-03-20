@@ -1,8 +1,7 @@
-This is my dotfiles configuration.
+My dotfiles config.
 
-Cheatsheets for
+Using
 
-Vim
-Tmux
-Docker
-fzf
+ - Zsh (with Starship prompt)
+ - Emacs (Doom)
+ - Alacrity

@@ -1,46 +1,43 @@
 #!/bin/bash
 
-## if [[ "$OSTYPE" == "linux-gnu" ]]; then
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-  brew install rg fd wget
-  brew install emacs
-fi
+# install_dev_tools() {
+#   # Global version manager +++
+#   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.7
 
+#   # Starship prompt ++
+#   curl -sS https://starship.rs/install.sh | sh
+#
+#
+#   # fzf install
+#   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+#   ~/.fzf/install
 
-install_dev_tools() {
-  # Global version manager +++
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.7
+#   # Fish
+#   # mkdir -p ~/.config/fish/completions; and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 
-  # Rust ++
-  $ curl https://sh.rustup.rs -sSf | sh
+#   # Zsh stuff
+#   # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#   curl -L git.io/antigen > ~/antigen.zsh
+# }
 
-  # Starship prompt ++
-  curl -fsSL https://starship.rs/install.sh | bash
+# echo "Dotfiles"
+# for file in $(ls -A | grep "^\.[a-z]"| grep -v '.git$\|.gitmodules$\|\.gitignore$|\.config$')
+# do
+#   rm -rf ~/$file
+#   ln -v -s `pwd`/$file ~
+# done
 
-  # Fish
-  # mkdir -p ~/.config/fish/completions; and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+# echo "Setup .config"
+# for file in $(ls -A .config)
+# do
+#   rm -rf ~/$file
+#   ln -v -s `pwd`/$file ~
+# done
 
-  # Zsh stuff
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  curl -L git.io/antigen > ~/antigen.zsh
-}
-
-install_emacs() {
-  git clone https://github.com/syl20bnr/spacemacs ~/.spacemacs.d
-  git clone https://github.com/hlissner/doom-emacs ~/.doom-emacs
-  doom install
-
-  wget -O ~/.emacs https://raw.githubusercontent.com/plexus/chemacs/master/.emacs
-}  > ~/.dotinstall.tmp
-
-echo "Dotfiles"
-for file in $(ls -A | grep "^\.[a-z]"| grep -v '.git$\|.gitmodules$\|\.gitignore$|\.config$')
+echo "Setup .doom"
+for file in $(ls -A .doom.d)
 do
   rm -rf ~/$file
   ln -v -s `pwd`/$file ~
 done
-
-echo "Setup config files"
-# todo

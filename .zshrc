@@ -39,12 +39,12 @@ unsetopt correct_all
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
-
 ## Plugins
 source $HOME/antigen.zsh
 
-plugins=(git z mix)
+plugins=(git mix asdf)
 
+antigen bundle agkozak/zsh-z
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
@@ -52,7 +52,6 @@ antigen use oh-my-zsh
 
 antigen apply
 
-plugins=(git z mix asdf)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
