@@ -39,10 +39,7 @@ tramp
 
 # Flycheck
 flycheck_*.el
-
 TAGS
-
-/.elixir_ls/
 
 # project files
 .projectile
@@ -50,4 +47,5 @@ TAGS
 notes.org
 todo.org
 geckodriver
-selenium-server-standalone-3.8.1.jar
+
+.DS_Store
