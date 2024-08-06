@@ -72,17 +72,17 @@
 ;;   (tree-sitter-hl-face:function.method.call ((t)))
 ;;   (tree-sitter-hl-face:property ((t))))
 ;;
-(use-package! tree-sitter
-  :config
-  (require 'tree-sitter-langs)
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+;; (use-package! tree-sitter
+;;   :config
+;;   (require 'tree-sitter-langs)
+;;   (global-tree-sitter-mode)
+;;   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
 
-(use-package! tree-sitter-langs
-  :after tree-sitter
-  :config
-  (add-to-list 'tree-sitter-major-mode-language-alist '(elixir-mode . elixir)))
+;; (use-package! tree-sitter-langs
+;;   :after tree-sitter
+;;   :config
+;;   (add-to-list 'tree-sitter-major-mode-language-alist '(elixir-mode . elixir)))
 
 
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -91,29 +91,29 @@
 (defun elixir-append-inspect ()
   (interactive)
   (evil-append-line nil)
-  (insert " |> IO.inspect")
+  (insert " |> dbg")
   (evil-normal-state)
   )
 
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "s-s") 'save-buffer)
 
-;; Configure exunit
-(use-package! exunit)
-
+;; (setq-hook! 'elixir-mode-hook +format-with 'lsp-format-buffer)
 
 ;; Setup some keybindings for exunit and lsp-ui
 (map! :mode elixir-mode
       :leader
       :desc "Sort Lines" :nve  "l"    #'sort-lines
-      :desc "iMenu" :nve  "c/"    #'lsp-ui-imenu
       :desc "Toggle Test" :nve  "cT"    #'exunit-toggle-file-and-test
       :desc "Inspect" :nve  "cI"    #'elixir-append-inspect)
+
+
+(setq mouse-wheel-tilt-scroll t)
 
 (keychain-refresh-environment)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
-;
+                                        ;
 ;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package!' for configuring packages
 ;; - `after!' for running code after a package has loaded

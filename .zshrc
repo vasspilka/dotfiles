@@ -13,7 +13,6 @@ BROWSER="/usr/bin/goole-chrome-stable"
 
 # Path & Env Exports
 export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/.asdf/installs/nodejs/10.16.3/.npm/bin:$PATH
 export PATH=$HOME/.asdf/installs/nodejs/15.8.0/.npm/bin:$PATH
 export PATH=$HOME/elixir-ls/release:$PATH
 export PATH=$HOME/.asdf/installs/rust/stable/bin:$PATH
@@ -41,6 +40,7 @@ unsetopt correct_all
 
 ## Plugins
 source $HOME/antigen.zsh
+source $HOME/.zprofile
 
 plugins=(git mix asdf)
 
@@ -49,6 +49,8 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen use oh-my-zsh
+
+antigen bundle git
 
 antigen apply
 
@@ -111,3 +113,10 @@ if [ -f '~/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '~/Downloads
 
 
 export PATH="/usr/local/opt/libpq/bin:$PATH"
+
+# bun completions
+[ -s "/Users/vasilisspilka/.bun/_bun" ] && source "/Users/vasilisspilka/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
