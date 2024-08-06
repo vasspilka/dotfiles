@@ -55,7 +55,7 @@ antigen bundle git
 antigen apply
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 #####################
 ## Aliases
