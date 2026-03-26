@@ -25,12 +25,12 @@ The script detects macOS vs Linux, symlinks top-level dotfiles and `.config/` ch
 | `.zshrc` | Shell — platform detection, PATH, Antigen plugins, aliases |
 | `.config/starship.toml` | Starship prompt (right-aligned clock) |
 | `.config/alacritty/` | Alacritty terminal |
-| `.doom.d/{init,packages,config}.el` | Doom Emacs — Evil mode, Elixir/Erlang via LSP + tree-sitter |
 | `.tmux.conf` | tmux — `C-a` prefix, vi copy mode, TPM plugins (resurrect, continuum, yank, open) |
 | `.gitconfig` | Git — LFS, nvim editor, `autoSetupRemote`, aliases |
 | `.tool-versions` | mise runtimes: erlang, elixir, rust, nodejs, python, ruby |
 | `.vimrc` | Vim/Neovim base config |
 | `.gitignore_global` | Global gitignore patterns |
+| `.claude/` | Claude Code — global CLAUDE.md, settings, hooks (RTK), skills |
 | `install.sh` | Installer — platform detection, dependency install, symlink management |
 
 ## Key Conventions
@@ -38,9 +38,9 @@ The script detects macOS vs Linux, symlinks top-level dotfiles and `.config/` ch
 - Primary dev stack is **Elixir/Phoenix** — most aliases target this (`mt`, `mxs`, `mck`, `ashremigrate`)
 - **Antigen** manages all zsh plugins — do not use the `plugins=()` array, add `antigen bundle` lines instead
 - **mise** manages `.tool-versions` — not asdf
-- **Doom Emacs**: after changing `init.el` or `packages.el`, run `doom sync` (binary is on PATH via `~/.config/emacs/bin`)
 - **tmux plugins** managed by TPM — install new plugins with `prefix + I`
 - `~/.zprofile` holds secrets and machine-local config — sourced by `.zshrc` but never symlinked or committed
 - Platform-specific code uses `IS_MAC` / `IS_LINUX` guards (set in `.zshrc`) or `PLATFORM` (set in `install.sh`)
 - `install.sh` is idempotent — safe to re-run; skips already-correct symlinks and already-installed tools
 - Git aliases: `lg` (graph log), `c` (commit -m), `p` (push)
+- Shell alias `cc` launches Claude Code

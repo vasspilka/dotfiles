@@ -38,7 +38,7 @@ install_prerequisites() {
   # Antigen
   if [ ! -f "$HOME/antigen.zsh" ]; then
     echo "Installing Antigen..."
-    curl -L git.io/antigen > ~/antigen.zsh
+    curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh > ~/antigen.zsh
   else
     echo "Antigen already installed"
   fi
@@ -67,6 +67,38 @@ install_prerequisites() {
   else
     echo "fzf already installed"
   fi
+
+  # jq (required by RTK hook)
+  if ! command -v jq &>/dev/null; then
+    echo "Installing jq..."
+    if [ "$PLATFORM" = "mac" ]; then
+      brew install jq
+    else
+      sudo apt-get install -y jq 2>/dev/null || sudo pacman -S --noconfirm jq 2>/dev/null
+    fi
+  else
+    echo "jq already installed"
+  fi
+
+  # RTK (token-optimized CLI proxy for Claude Code)
+  if ! command -v rtk &>/dev/null; then
+    echo "Installing RTK..."
+    if [ "$PLATFORM" = "mac" ]; then
+      brew install rtk
+    else
+      cargo install rtk
+    fi
+  else
+    echo "RTK already installed"
+  fi
+
+  # TPM (Tmux Plugin Manager)
+  if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "Installing TPM..."
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  else
+    echo "TPM already installed"
+  fi
 }
 
 link_dotfiles() {
@@ -74,7 +106,7 @@ link_dotfiles() {
   echo "=== Linking dotfiles ==="
 
   # Link top-level dotfiles (exclude .git, .DS_Store, .config, .gitmodules)
-  for file in $(ls -A "$DOTFILES_DIR" | grep "^\.[a-z]" | grep -v "^\.git$" | grep -v "^\.gitignore$" | grep -v "^\.gitmodules$" | grep -v "\.DS_Store" | grep -v "\.config"); do
+  for file in $(ls -A "$DOTFILES_DIR" | grep "^\.[a-z]" | grep -v "^\.git$" | grep -v "^\.gitignore$" | grep -v "^\.gitmodules$" | grep -v "\.DS_Store" | grep -v "\.config" | grep -v "\.claude"); do
     target="$HOME/$file"
     source="$DOTFILES_DIR/$file"
 
@@ -97,6 +129,21 @@ link_dotfiles() {
       echo "  already linked: .config/$name"
     else
       rm -f "$target"
+      ln -v -s "$source" "$target"
+    fi
+  done
+
+  # Link .claude/ children individually (preserves runtime data like cache, sessions, etc.)
+  mkdir -p "$HOME/.claude"
+  for item in "$DOTFILES_DIR"/.claude/*; do
+    name="$(basename "$item")"
+    target="$HOME/.claude/$name"
+    source="$item"
+
+    if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
+      echo "  already linked: .claude/$name"
+    else
+      rm -rf "$target"
       ln -v -s "$source" "$target"
     fi
   done
@@ -125,5 +172,5 @@ link_dotfiles
 setup_zprofile
 
 echo ""
-echo "Done! Run with --with-deps to install prerequisites (oh-my-zsh, antigen, starship, mise, fzf)."
+echo "Done! Run with --with-deps to install prerequisites (oh-my-zsh, antigen, starship, mise, fzf, jq, rtk, tpm)."
 echo "Restart your shell or run: source ~/.zshrc"

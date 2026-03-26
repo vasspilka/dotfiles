@@ -3,7 +3,6 @@
 ###########################
 
 ZSH="$HOME/.oh-my-zsh"
-TERM=xterm-256color
 ENABLE_CORRECTION="false"
 
 # Platform detection
@@ -15,6 +14,7 @@ esac
 ###############################
 # Inits, sourcing and plugins
 ###############################
+export EDITOR="nvim"
 export ERL_AFLAGS="-kernel shell_history enabled"
 export KERL_BUILD_DOCS=yes
 
@@ -31,8 +31,6 @@ fi
 
 eval "$(mise activate zsh)"
 export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/elixir-ls/release:$PATH
-export PATH=$HOME/.config/emacs/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 
 # Starship prompt
@@ -49,13 +47,13 @@ unsetopt correct_all
 source $HOME/antigen.zsh
 source $HOME/.zprofile
 
+antigen use oh-my-zsh
 antigen bundle agkozak/zsh-z
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle git
 antigen bundle mix
 antigen bundle zsh-users/zsh-completions
-antigen use oh-my-zsh
 
 antigen apply
 
@@ -66,7 +64,7 @@ source <(fzf --zsh)
 #####################
 
 # System
-alias   e="emacs -nw"
+alias   e="nvim"
 [ "$IS_LINUX" = true ] && alias pac="sudo pacman"
 
 # JS
@@ -76,12 +74,12 @@ alias  yt="yarn test"
 alias  yb="yarn build"
 
 alias  szsh="nvim ~/.zshrc"
-alias stmux="e ~/.tmux.conf"
-alias  svim="e ~/.vimrc"
+alias stmux="nvim ~/.tmux.conf"
+alias  svim="nvim ~/.vimrc"
 
-alias  note="e ~/notes/note.org"
-alias bnote="e ~/notes/books.org"
-alias dnote="e ~/notes/developer.org"
+alias  note="nvim ~/notes/note.org"
+alias bnote="nvim ~/notes/books.org"
+alias dnote="nvim ~/notes/developer.org"
 
 alias mine='sudo chown -R $USER'
 [ "$IS_LINUX" = true ] && alias open='xdg-open'
@@ -102,7 +100,7 @@ alias ashremigrate='mix do ash_postgres.generate_migrations, ash_postgres.migrat
 
 ## Git
 alias gamend='git commit -a --amend'
-alias gitdeletemerged='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
+alias gitdeletemerged='git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d'
 
 ## Places
 alias Work="~/Work"

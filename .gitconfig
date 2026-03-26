@@ -13,6 +13,14 @@
 	defaultBranch = main
 [push]
 	autoSetupRemote = true
+[pull]
+	rebase = true
+[diff]
+	algorithm = histogram
+[merge]
+	conflictstyle = zdiff3
+[rerere]
+	enabled = true
 [alias]
 	c = commit -m
 	p = push
