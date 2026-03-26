@@ -5,29 +5,39 @@
 ZSH="$HOME/.oh-my-zsh"
 TERM=xterm-256color
 ENABLE_CORRECTION="false"
-BROWSER="/usr/bin/goole-chrome-stable"
+
+# Platform detection
+case "$(uname -s)" in
+  Darwin) IS_MAC=true ;;
+  Linux)  IS_LINUX=true ;;
+esac
 
 ###############################
 # Inits, sourcing and plugins
 ###############################
-
-# Path & Env Exports
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/.asdf/installs/nodejs/15.8.0/.npm/bin:$PATH
-export PATH=$HOME/elixir-ls/release:$PATH
-export PATH=$HOME/.asdf/installs/rust/stable/bin:$PATH
-# export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-
-export LOCAL_AWS_USERNAME="vasilis.spilka"
 export ERL_AFLAGS="-kernel shell_history enabled"
 export KERL_BUILD_DOCS=yes
 
-# Inits
-# Starship prompts
-eval "$(starship init zsh)"
-# ssh agent to keychain
-# eval `keychain --eval --agents ssh vasspilka`
+# Path & Env Exports
+if [ "$IS_MAC" = true ]; then
+  if [ -f /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [ -f /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+  export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+  export PATH="/usr/local/opt/libpq/bin:$PATH"
+fi
 
+eval "$(mise activate zsh)"
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/elixir-ls/release:$PATH
+export PATH=$HOME/.config/emacs/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+
+# Starship prompt
+eval "$(starship init zsh)"
+stty -ixon
 autoload bashcompinit
 bashcompinit
 autoload -U compinit && compinit
@@ -35,25 +45,19 @@ autoload -U compinit && compinit
 # No autocorrect
 unsetopt correct_all
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-
 ## Plugins
 source $HOME/antigen.zsh
 source $HOME/.zprofile
 
-plugins=(git mix asdf)
-
 antigen bundle agkozak/zsh-z
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle git
+antigen bundle mix
 antigen bundle zsh-users/zsh-completions
 antigen use oh-my-zsh
 
-antigen bundle git
-
 antigen apply
-
 
 source <(fzf --zsh)
 
@@ -63,8 +67,7 @@ source <(fzf --zsh)
 
 # System
 alias   e="emacs -nw"
-alias pac="sudo pacman"
-alias doom="~/.doom-emacs/bin/doom"
+[ "$IS_LINUX" = true ] && alias pac="sudo pacman"
 
 # JS
 alias  yi="yarn install"
@@ -72,7 +75,7 @@ alias  ys="yarn start"
 alias  yt="yarn test"
 alias  yb="yarn build"
 
-alias  szsh="e ~/.zshrc"
+alias  szsh="nvim ~/.zshrc"
 alias stmux="e ~/.tmux.conf"
 alias  svim="e ~/.vimrc"
 
@@ -81,11 +84,13 @@ alias bnote="e ~/notes/books.org"
 alias dnote="e ~/notes/developer.org"
 
 alias mine='sudo chown -R $USER'
-alias open='xdg-open'
+[ "$IS_LINUX" = true ] && alias open='xdg-open'
 alias tmux='tmux -u'
 
 alias dk='docker'
 alias dkc='docker-compose'
+alias c='claude --dangerously-skip-permissions'
+
 
 ## Elixir Phoenix
 alias  mt="mix test"
@@ -93,7 +98,7 @@ alias mixs='iex -S mix'
 alias ms='mix phx.server'
 alias mxs='iex -S mix phx.server'
 alias mck='mix do format, credo, dialyzer, test'
-# alias mdrr='mix do ecto.drop, ecto.create, event_store.drop, event_store.create, event_store.init, event_store.migrate, ecto.migrate'
+alias ashremigrate='mix do ash_postgres.generate_migrations, ash_postgres.migrate'
 
 ## Git
 alias gamend='git commit -a --amend'
@@ -101,22 +106,13 @@ alias gitdeletemerged='git branch --merged | egrep -v "(^\*|master|dev)" | xargs
 
 ## Places
 alias Work="~/Work"
-alias x="/home/x"
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-export PATH="~/.asdf/installs/rust/stable/bin:$PATH"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '~/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '~/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
-
-export PATH="/usr/local/opt/libpq/bin:$PATH"
 
 # bun completions
-[ -s "/Users/vasilisspilka/.bun/_bun" ] && source "/Users/vasilisspilka/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Added by Antigravity
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
