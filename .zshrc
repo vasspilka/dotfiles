@@ -87,7 +87,7 @@ alias tmux='tmux -u'
 
 alias dk='docker'
 alias dkc='docker-compose'
-alias c='claude --dangerously-skip-permissions'
+alias c='claude --permission-mode auto'
 
 
 ## Elixir Phoenix

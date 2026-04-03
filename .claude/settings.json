@@ -28,7 +28,13 @@
       }
     }
   },
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  },
   "effortLevel": "high",
-  "skipDangerousModePermissionPrompt": true,
   "voiceEnabled": true
 }
