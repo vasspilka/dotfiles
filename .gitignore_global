@@ -51,8 +51,11 @@ geckodriver
 .DS_Store
 .env
 .env.local
+.env.bck
 node_modules/
 
 # Claude Code related
 .playwright-mcp/
 settings.local.json
+
+

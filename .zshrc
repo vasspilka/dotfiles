@@ -31,6 +31,7 @@ fi
 
 eval "$(mise activate zsh)"
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.docker/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 
 # Starship prompt
@@ -87,7 +88,7 @@ alias tmux='tmux -u'
 
 alias dk='docker'
 alias dkc='docker-compose'
-alias c='claude --permission-mode auto'
+alias c='claude --dangerously-skip-permissions'
 
 
 ## Elixir Phoenix
@@ -114,3 +115,5 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Added by Antigravity
 export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools

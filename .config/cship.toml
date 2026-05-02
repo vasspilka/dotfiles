@@ -1,0 +1,65 @@
+# cship — Claude Code statusline
+# Full config reference: https://cship.dev
+
+[cship]
+lines = [
+  "$os$directory$git_branch$git_status$package$time",
+  "$cship.model $cship.context_bar $cship.usage_limits"
+]
+
+# ── Line 1: Starship passthrough modules ──────────────────────────────────────
+
+[os]
+disabled = false
+style    = "bg:#e8a0bf fg:#1a1b26"
+format   = "[ $symbol]($style)"
+
+[directory]
+style            = "bg:#a6da95 fg:#1a1b26"
+format           = "[ $path ]($style)"
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+style  = "bg:#e0af68 fg:#1a1b26"
+symbol = " "
+format = "[$symbol$branch ]($style)"
+
+[git_status]
+style  = "bg:#e0af68 fg:#1a1b26"
+format = "[$all_status$ahead_behind]($style)"
+
+[package]
+style  = "bg:#c792ea fg:#1a1b26"
+symbol = " "
+format = "[ $symbol$version ]($style)"
+
+[time]
+disabled = false
+style    = "bg:#7dcfff fg:#1a1b26"
+format   = "[ $time ]($style)"
+
+# ── Line 2: cship native modules ─────────────────────────────────────────────
+
+[cship.model]
+symbol = "🤖 "
+style  = "bold fg:#7aa2f7"
+
+[cship.context_bar]
+width              = 10
+symbol             = "📊 "
+style              = "fg:#9ece6a"
+warn_threshold     = 40.0
+warn_style         = "fg:#e0af68"
+critical_threshold = 70.0
+critical_style     = "bold fg:#f7768e"
+
+[cship.usage_limits]
+ttl                = 300
+five_hour_format   = "⌛ 5h {pct}% ({reset})"
+seven_day_format   = "📅 7d {pct}% ({reset})"
+separator          = " "
+warn_threshold     = 60.0
+warn_style         = "fg:#e0af68"
+critical_threshold = 80.0
+critical_style     = "bold fg:#f7768e"

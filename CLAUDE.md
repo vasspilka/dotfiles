@@ -16,7 +16,7 @@ Personal cross-platform dotfiles (macOS primary, Linux supported). Config files 
 ./install.sh --with-deps
 ```
 
-The script detects macOS vs Linux, symlinks top-level dotfiles and `.config/` children individually (preserving other `~/.config` contents), and creates `~/.zprofile` if missing.
+The script detects macOS vs Linux, symlinks top-level dotfiles, `.config/`, `.claude/`, and `.pi/agent/` config individually (preserving runtime/auth data), and creates `~/.zprofile` if missing.
 
 ## File Map
 
@@ -24,13 +24,15 @@ The script detects macOS vs Linux, symlinks top-level dotfiles and `.config/` ch
 |---|---|
 | `.zshrc` | Shell — platform detection, PATH, Antigen plugins, aliases |
 | `.config/starship.toml` | Starship prompt (right-aligned clock) |
+| `.config/cship.toml` | Claude Code statusline |
 | `.config/alacritty/` | Alacritty terminal |
 | `.tmux.conf` | tmux — `C-a` prefix, vi copy mode, TPM plugins (resurrect, continuum, yank, open) |
 | `.gitconfig` | Git — LFS, nvim editor, `autoSetupRemote`, aliases |
 | `.tool-versions` | mise runtimes: erlang, elixir, rust, nodejs, python, ruby |
 | `.vimrc` | Vim/Neovim base config |
 | `.gitignore_global` | Global gitignore patterns |
-| `.claude/` | Claude Code — global CLAUDE.md, settings, hooks (RTK), skills |
+| `.claude/` | Claude Code — global CLAUDE.md, settings, keybindings, hooks (RTK), skills |
+| `.pi/agent/` | Pi — settings, global AGENTS.md linked to Claude instructions, extensions |
 | `install.sh` | Installer — platform detection, dependency install, symlink management |
 
 ## Key Conventions
@@ -40,6 +42,7 @@ The script detects macOS vs Linux, symlinks top-level dotfiles and `.config/` ch
 - **mise** manages `.tool-versions` — not asdf
 - **tmux plugins** managed by TPM — install new plugins with `prefix + I`
 - `~/.zprofile` holds secrets and machine-local config — sourced by `.zshrc` but never symlinked or committed
+- Claude Code/Pi auth, sessions, caches, and histories stay local; do not sync `~/.claude.json`, `~/.pi/agent/auth.json`, or session directories
 - Platform-specific code uses `IS_MAC` / `IS_LINUX` guards (set in `.zshrc`) or `PLATFORM` (set in `install.sh`)
 - `install.sh` is idempotent — safe to re-run; skips already-correct symlinks and already-installed tools
 - Git aliases: `lg` (graph log), `c` (commit -m), `p` (push)

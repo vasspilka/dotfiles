@@ -101,52 +101,78 @@ install_prerequisites() {
   fi
 }
 
+link_path() {
+  local source="$1"
+  local target="$2"
+  local label="$3"
+
+  if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
+    echo "  already linked: $label"
+  else
+    rm -rf "$target"
+    ln -v -s "$source" "$target"
+  fi
+}
+
+link_dir_children() {
+  local source_dir="$1"
+  local target_dir="$2"
+  local label_prefix="$3"
+
+  [ -d "$source_dir" ] || return
+  mkdir -p "$target_dir"
+
+  local item name
+  for item in "$source_dir"/*; do
+    [ -e "$item" ] || [ -L "$item" ] || continue
+    name="$(basename "$item")"
+    link_path "$item" "$target_dir/$name" "$label_prefix/$name"
+  done
+}
+
 link_dotfiles() {
   echo ""
   echo "=== Linking dotfiles ==="
 
-  # Link top-level dotfiles (exclude .git, .DS_Store, .config, .gitmodules)
-  for file in $(ls -A "$DOTFILES_DIR" | grep "^\.[a-z]" | grep -v "^\.git$" | grep -v "^\.gitignore$" | grep -v "^\.gitmodules$" | grep -v "\.DS_Store" | grep -v "\.config" | grep -v "\.claude"); do
-    target="$HOME/$file"
-    source="$DOTFILES_DIR/$file"
+  # Link top-level dotfiles (exclude directories handled specially below)
+  local item file name
+  for item in "$DOTFILES_DIR"/.[!.]*; do
+    [ -e "$item" ] || [ -L "$item" ] || continue
+    file="$(basename "$item")"
 
-    if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
-      echo "  already linked: $file"
-    else
-      rm -f "$target"
-      ln -v -s "$source" "$target"
-    fi
+    case "$file" in
+      .git|.gitignore|.gitmodules|.DS_Store|.config|.claude|.pi)
+        continue
+        ;;
+    esac
+
+    link_path "$item" "$HOME/$file" "$file"
   done
 
   # Link .config/ children individually (preserves other .config contents)
-  mkdir -p "$HOME/.config"
-  for item in "$DOTFILES_DIR"/.config/*; do
-    name="$(basename "$item")"
-    target="$HOME/.config/$name"
-    source="$item"
-
-    if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
-      echo "  already linked: .config/$name"
-    else
-      rm -f "$target"
-      ln -v -s "$source" "$target"
-    fi
-  done
+  link_dir_children "$DOTFILES_DIR/.config" "$HOME/.config" ".config"
 
   # Link .claude/ children individually (preserves runtime data like cache, sessions, etc.)
-  mkdir -p "$HOME/.claude"
-  for item in "$DOTFILES_DIR"/.claude/*; do
-    name="$(basename "$item")"
-    target="$HOME/.claude/$name"
-    source="$item"
+  link_dir_children "$DOTFILES_DIR/.claude" "$HOME/.claude" ".claude"
 
-    if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
-      echo "  already linked: .claude/$name"
-    else
-      rm -rf "$target"
-      ln -v -s "$source" "$target"
-    fi
-  done
+  # Link Pi config while preserving auth.json, sessions, and local-only runtime state.
+  if [ -d "$DOTFILES_DIR/.pi/agent" ]; then
+    mkdir -p "$HOME/.pi/agent"
+
+    for item in "$DOTFILES_DIR"/.pi/agent/*; do
+      [ -e "$item" ] || [ -L "$item" ] || continue
+      name="$(basename "$item")"
+
+      case "$name" in
+        extensions)
+          link_dir_children "$item" "$HOME/.pi/agent/extensions" ".pi/agent/extensions"
+          ;;
+        *)
+          link_path "$item" "$HOME/.pi/agent/$name" ".pi/agent/$name"
+          ;;
+      esac
+    done
+  fi
 }
 
 setup_zprofile() {
@@ -173,4 +199,5 @@ setup_zprofile
 
 echo ""
 echo "Done! Run with --with-deps to install prerequisites (oh-my-zsh, antigen, starship, mise, fzf, jq, rtk, tpm)."
+echo "Claude Code and Pi configs are linked; auth, sessions, caches, and other runtime state stay local."
 echo "Restart your shell or run: source ~/.zshrc"
