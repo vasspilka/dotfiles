@@ -21,26 +21,15 @@
     ],
     "defaultMode": "acceptEdits"
   },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ~/.claude/hooks/rtk-rewrite.sh"
-          }
-        ]
-      }
-    ]
-  },
+  "model": "opus[1m]",
   "statusLine": {
     "type": "command",
     "command": "cship"
   },
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
-    "figma@claude-plugins-official": true
+    "figma@claude-plugins-official": true,
+    "posthog@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-code-plugins": {
@@ -62,8 +51,9 @@
     }
   },
   "effortLevel": "xhigh",
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
+  "theme": "dark",
+  "agentPushNotifEnabled": false,
   "voiceEnabled": true
 }

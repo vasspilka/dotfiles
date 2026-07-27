@@ -58,4 +58,10 @@ node_modules/
 .playwright-mcp/
 settings.local.json
 
+.claude/scheduled_tasks.lock
 
+
+.codex
+.agents
+
+**/.claude/.cc-writes/

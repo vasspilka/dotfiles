@@ -64,7 +64,7 @@ This file contains cross-project guidance that applies to all development work.
 ## Version Control
 
 ### Commit Practices
-- Never commit code, this should be left to the developer
+- Don't commit code, unless explicitly asked to
 
 ## Performance Considerations
 
@@ -108,5 +108,3 @@ Always check for and prioritize:
 - Stay updated with best practices
 - Adapt to project evolution
 - Share knowledge through documentation
-
-@RTK.md

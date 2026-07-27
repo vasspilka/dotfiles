@@ -97,6 +97,7 @@ alias mixs='iex -S mix'
 alias ms='mix phx.server'
 alias mxs='iex -S mix phx.server'
 alias mck='mix do format, credo, dialyzer, test'
+alias killbeam="pkill -TERM -f beam"
 alias ashremigrate='mix do ash_postgres.generate_migrations, ash_postgres.migrate'
 
 ## Git
@@ -117,3 +118,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools
+
+# Pi
+export PATH="/Users/vasilisspilka/.local/share/mise/installs/node/24.18.0/bin:$PATH"
