@@ -1,10 +1,10 @@
 ---
 name: feature-review
-description: Review a feature to improve and extend it. 
+description: Review a feature to improve and extend it.
 user_invocable: true
 ---
 
-We will be reviwing the following pieace of functionality.
+We will be reviewing the following piece of functionality.
 
 $ARGUMENTS
 
@@ -19,5 +19,5 @@ Our goals are:
   - Fill functionality gaps
   - Discover ways to improve our system
 
-This is a good opportunity to think outside of the box and come up with novel ways solve problems that adhere to latest standards and best practices 
+This is a good opportunity to think outside of the box and come up with novel ways to solve problems that adhere to the latest standards and best practices.
 
