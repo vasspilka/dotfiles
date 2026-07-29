@@ -78,6 +78,9 @@ alias  szsh="nvim ~/.zshrc"
 alias stmux="nvim ~/.tmux.conf"
 alias  svim="nvim ~/.vimrc"
 
+# `sandbox` is linked into ~/.local/bin by install.sh (already on PATH above),
+# so it also works from scripts and non-interactive shells.
+
 alias  note="nvim ~/notes/note.org"
 alias bnote="nvim ~/notes/books.org"
 alias dnote="nvim ~/notes/developer.org"
@@ -96,6 +99,7 @@ alias  mt="mix test"
 alias mixs='iex -S mix'
 alias ms='mix phx.server'
 alias mxs='iex -S mix phx.server'
+alias killbeam="pkill -TERM -f 'beam\.smp'"
 alias mck='mix do format, credo, dialyzer, test'
 alias ashremigrate='mix do ash_postgres.generate_migrations, ash_postgres.migrate'
 
