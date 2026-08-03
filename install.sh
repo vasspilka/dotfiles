@@ -68,7 +68,7 @@ install_prerequisites() {
     echo "fzf already installed"
   fi
 
-  # jq (required by RTK hook)
+  # jq
   if ! command -v jq &>/dev/null; then
     echo "Installing jq..."
     if [ "$PLATFORM" = "mac" ]; then
@@ -78,18 +78,6 @@ install_prerequisites() {
     fi
   else
     echo "jq already installed"
-  fi
-
-  # RTK (token-optimized CLI proxy for Claude Code)
-  if ! command -v rtk &>/dev/null; then
-    echo "Installing RTK..."
-    if [ "$PLATFORM" = "mac" ]; then
-      brew install rtk
-    else
-      cargo install rtk
-    fi
-  else
-    echo "RTK already installed"
   fi
 
   # TPM (Tmux Plugin Manager)
@@ -198,6 +186,6 @@ link_dotfiles
 setup_zprofile
 
 echo ""
-echo "Done! Run with --with-deps to install prerequisites (oh-my-zsh, antigen, starship, mise, fzf, jq, rtk, tpm)."
+echo "Done! Run with --with-deps to install prerequisites (oh-my-zsh, antigen, starship, mise, fzf, jq, tpm)."
 echo "Claude Code and Pi configs are linked; auth, sessions, caches, and other runtime state stay local."
 echo "Restart your shell or run: source ~/.zshrc"

@@ -9,7 +9,6 @@
 .claude/debug/
 .claude/file-history/
 .claude/history.jsonl
-.claude/hooks/.rtk-hook.sha256
 .claude/ide/
 .claude/mcp-needs-auth-cache.json
 .claude/memory/

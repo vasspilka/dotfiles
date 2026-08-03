@@ -31,7 +31,7 @@ The script detects macOS vs Linux, symlinks top-level dotfiles, `.config/`, `.cl
 | `.tool-versions` | mise runtimes: erlang, elixir, rust, nodejs, python, ruby |
 | `.vimrc` | Vim/Neovim base config |
 | `.gitignore_global` | Global gitignore patterns |
-| `.claude/` | Claude Code — global CLAUDE.md, settings, keybindings, hooks (RTK), skills |
+| `.claude/` | Claude Code — global CLAUDE.md, settings, keybindings, skills |
 | `.pi/agent/` | Pi — settings, global AGENTS.md linked to Claude instructions, extensions |
 | `install.sh` | Installer — platform detection, dependency install, symlink management |
 

@@ -12,7 +12,7 @@ Personal cross-platform dotfiles (macOS primary, Linux supported). Everything is
 ./install.sh --with-deps
 ```
 
-`--with-deps` installs: Homebrew (mac), Oh My Zsh, Antigen, Starship, mise, fzf, jq, RTK, TPM.
+`--with-deps` installs: Homebrew (mac), Oh My Zsh, Antigen, Starship, mise, fzf, jq, TPM.
 
 After linking, restart your shell or `source ~/.zshrc`.
 
