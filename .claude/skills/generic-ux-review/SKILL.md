@@ -1,11 +1,6 @@
 ---
 name: generic-ux-review
-description: >
-  UI/UX product expert review of any web application. Uses Playwright MCP to
-  navigate the app on both desktop and mobile viewports, evaluating usability,
-  visual consistency, accessibility, responsiveness, and interaction quality.
-  Produces a prioritized report with concrete improvement suggestions. Works
-  with any project — gathers app context at the start of the run.
+description: UI/UX product review of a web application.
 user_invocable: true
 argument-hint: [url-or-focus-area]
 ---

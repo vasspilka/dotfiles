@@ -8,10 +8,10 @@ We are performing a Domain audit, our goal is to ensure we a well designed Domai
 
 How:
 
-1. Carefully analyze our platform and present the high level concepts of our Domain and how they connect
+1. Carefully analyze our platform then present the high level concepts of our Domain and how they are connected
 2. Apply critical thinking to discover any conflicts or gaps in the model
 3. Discuss the model with the user to ensure mutual understanding
-4. If there seems to be any friction work with the user to update our Domain Model and Language
+4. In case of any friction work with the user to update our Domain Model and Language
 
 $ARGUMENTS
 
