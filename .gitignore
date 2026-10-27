@@ -33,3 +33,5 @@
 # Pi runtime/auth state (do not sync)
 .pi/agent/auth.json
 .pi/agent/sessions/
+
+.claude/skills/synced
